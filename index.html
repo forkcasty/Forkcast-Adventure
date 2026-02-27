@@ -51,7 +51,7 @@
     }
 
     body {
-      background-color: var(--fk-background);
+      background-color: var(--fk-grey6);
       color: var(--fk-label);
       font-family: var(--font-bricolage);
       overflow-x: hidden;
@@ -239,139 +239,259 @@
       transition: width 0.3s ease;
     }
 
-    /* Result ID Card */
+    /* Receipt Result Card */
     #id-card {
-      background: var(--fk-grey6);
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      background: #FFFFFF;
       width: 100%;
-      max-width: 520px;
-      margin: 0 auto 2rem auto;
-      border: 1px solid var(--fk-grey5);
-    }
-
-    .card-header {
-      background: var(--fk-label);
-      color: #FFFFFF;
-      text-align: center;
+      max-width: 400px;
+      margin: 0 auto 1.5rem auto;
       padding: 1.5rem;
+      border: 1px solid #ddd;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      font-family: 'Courier New', Courier, monospace;
+      color: #333;
+      position: relative;
     }
 
-    .card-header-caption {
-      color: var(--fk-primary);
+    /* Sawtooth top and bottom edge effect */
+    #id-card::before,
+    #id-card::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 10px;
+      background-size: 20px 20px;
+    }
+
+    #id-card::before {
+      top: -10px;
+      background-image: radial-gradient(circle at 10px 0, transparent 10px, #FFFFFF 11px);
+    }
+
+    #id-card::after {
+      bottom: -10px;
+      background-image: radial-gradient(circle at 10px 10px, transparent 10px, #FFFFFF 11px);
+    }
+
+    .receipt-header {
+      text-align: center;
+      margin-bottom: 1rem;
+      border-bottom: 2px dashed #ccc;
+      padding-bottom: 1rem;
+    }
+
+    .receipt-title {
+      font-size: 24px;
+      font-weight: bold;
       margin-bottom: 0.5rem;
+      text-transform: uppercase;
     }
 
-    .card-title {
-      font-size: 32px;
-      font-weight: 600;
-      font-variation-settings: "wdth" 100;
+    .receipt-subtitle {
+      font-size: 14px;
+      margin-bottom: 0.25rem;
     }
 
-    .card-row-split {
-      display: flex;
-      background: rgba(45, 106, 79, 0.15);
-      /* fk-green 15% */
-      border-bottom: 1px solid var(--fk-grey5);
+    .receipt-meta {
+      font-size: 12px;
+      color: #666;
     }
 
-    .card-avatar-cell {
-      flex: 0 0 40%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem 1rem;
-      border-right: 1px solid var(--fk-grey5);
+    .receipt-avatar-wrapper {
+      text-align: center;
+      margin: 1.5rem 0;
     }
 
-    .card-avatar-img {
-      width: 110px;
-      height: 110px;
+    .receipt-avatar {
+      width: 100px;
+      height: 100px;
       object-fit: contain;
     }
 
-    .card-stats-cell {
-      flex: 1;
-      padding: 1.5rem 1rem;
+    .receipt-section {
+      margin-bottom: 1.5rem;
+    }
+
+    .receipt-section-title {
+      font-weight: bold;
+      font-size: 16px;
+      margin-bottom: 0.5rem;
+      border-bottom: 1px dashed #ccc;
+      padding-bottom: 4px;
+      text-transform: uppercase;
+    }
+
+    .receipt-item {
       display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .stat-list {
-      list-style-type: none;
-      margin-bottom: 1rem;
-    }
-
-    .stat-list:last-child {
-      margin-bottom: 0;
-    }
-
-    .stat-title {
-      font-weight: 600;
-      font-size: 15px;
-      margin-bottom: 4px;
-      color: var(--fk-label);
-    }
-
-    .stat-item {
+      justify-content: space-between;
+      margin-bottom: 6px;
       font-size: 14px;
-      color: var(--fk-label-secondary);
-      margin-bottom: 2px;
-      position: relative;
-      padding-left: 12px;
+      line-height: 1.2;
     }
 
-    .stat-item::before {
-      content: "•";
-      position: absolute;
-      left: 0;
-      color: var(--fk-label-tertiary);
+    .receipt-item-name {
+      padding-right: 12px;
     }
 
-    .card-subtitle {
-      font-size: 14px;
-      color: rgba(242, 169, 59, 0.7);
-      /* fk-primary at 70% */
-      margin-top: 4px;
-      font-weight: 400;
-      letter-spacing: 0.02em;
+    .receipt-item-code {
+      font-family: inherit;
+      color: #777;
     }
 
-    .card-catchphrase {
-      background: var(--fk-grey5);
-      padding: 1.25rem;
+    .receipt-catchphrase {
       text-align: center;
       font-style: italic;
-      color: var(--fk-label);
-      border-bottom: 1px solid var(--fk-grey4);
-      font-size: 15px;
-    }
-
-    .card-section {
-      padding: 1.25rem 1.5rem;
-      border-bottom: 1px solid var(--fk-grey5);
-      background: var(--fk-background);
-    }
-
-    .card-section-title {
-      font-weight: 600;
-      font-size: 15px;
-      color: var(--fk-label);
-      margin-bottom: 8px;
-    }
-
-    .card-text {
       font-size: 14px;
-      color: var(--fk-label-secondary);
-      line-height: 1.4;
+      padding: 1rem 0;
+      border-top: 2px dashed #ccc;
+      border-bottom: 2px dashed #ccc;
+      margin: 1.5rem 0;
     }
 
-    .features-wrapper {
+    .receipt-barcode {
+      text-align: center;
+      font-family: 'Libre Barcode 39 Text', 'Courier New', monospace;
+      /* Fallback if we don't load a barcode font */
+      font-size: 40px;
+      margin-top: 1rem;
+      color: #000;
+      letter-spacing: -2px;
+    }
+
+    /* CTA Banner Layout */
+    .cta-banner {
       display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
+      flex-direction: row;
+      align-items: center;
+      gap: 2rem;
+      background: var(--fk-label);
+      border-radius: 24px;
+      padding: 2.5rem 2rem 2.5rem 2.5rem;
+      max-width: 860px;
+      margin: 2rem auto;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* LEFT SIDE — copy */
+    .cta-left {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      z-index: 1;
+    }
+
+    .cta-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--fk-primary);
+      color: var(--fk-label);
+      border-radius: 100px;
+      padding: 4px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      width: fit-content;
+    }
+
+    .cta-headline {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: 36px;
+      font-weight: 700;
+      color: white;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+    }
+
+    .cta-subline {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: 15px;
+      color: rgba(255, 255, 255, 0.65);
+      line-height: 1.6;
+      max-width: 280px;
+    }
+
+    .cta-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--fk-primary);
+      color: var(--fk-label);
+      border: none;
+      border-radius: 100px;
+      padding: 14px 24px;
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      width: fit-content;
+      margin-top: 0.5rem;
+    }
+
+    .cta-button:hover {
+      background: var(--fk-primary-dark);
+    }
+
+    .cta-share {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.45);
+      cursor: pointer;
+      margin-top: 0.25rem;
+    }
+
+    .cta-share:hover {
+      color: var(--fk-primary);
+    }
+
+    /* RIGHT SIDE — phone mockup */
+    .cta-right {
+      flex-shrink: 0;
+      width: 220px;
+      position: relative;
+    }
+
+    .cta-phone {
+      width: 100%;
+      border-radius: 28px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+      display: block;
+    }
+
+    .mockup-avatar {
+      position: absolute;
+      top: 50%;
+      /* TBD - Will be adjusted */
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 110px;
+      height: 110px;
+      object-fit: contain;
+      z-index: 2;
+    }
+
+    /* Mobile */
+    @media (max-width: 640px) {
+      .cta-banner {
+        flex-direction: column;
+        padding: 2rem 1.5rem;
+        border-radius: 20px;
+      }
+
+      .cta-right {
+        width: 160px;
+        margin: 0 auto;
+      }
+
+      .cta-headline {
+        font-size: 28px;
+      }
+
+      .cta-button {
+        width: 100%;
+        justify-content: center;
+      }
     }
 
     .fk-chip {
@@ -552,7 +672,7 @@
           { quote: "No plan. All vibes. The best meals I've had in years came from their kitchen.", from: "Chocolate" },
           { quote: "I'd follow Blueberry into any kitchen, any city, any time.", from: "Ice Cream" }
         ],
-        features: ["🤖 AI Food Assistant", "🍴 Nearby Restaurants", "🧪 AI Recipes", "⚡ Quick-Add"]
+        features: ["🤖 AI Food Assistant", "🧪 AI Recipes", "⚡ Quick-Add"]
       },
 
       // ─── avatar_03 ─── BROCCOLI
@@ -680,7 +800,7 @@
           { quote: "Brought five people and a cheese board to what was supposed to be a quiet dinner. It was the best night.", from: "Pizza" },
           { quote: "You can always count on Cheese to make the meal into a whole thing. In the best way.", from: "Strawberry" }
         ],
-        features: ["🤖 AI Food Assistant", "🍴 Nearby Restaurants", "🔗 URL Import", "⚡ Quick-Add"]
+        features: ["🤖 AI Food Assistant", "🔗 URL Import", "⚡ Quick-Add"]
       },
 
       // ─── avatar_07 ─── GARLIC
@@ -776,7 +896,7 @@
           { quote: "Their restaurant spreadsheet has 47 entries with ratings, notes, and best dishes. I just use the spreadsheet.", from: "Chocolate" },
           { quote: "Tomato's picks are never wrong. I've stopped questioning it and just show up.", from: "Cheese" }
         ],
-        features: ["🍴 Nearby Restaurants", "📅 Meal Planner", "🌍 Recipe Discovery", "⭐ Saved Favorites"]
+        features: ["📅 Meal Planner", "🌍 Recipe Discovery", "⭐ Saved Favorites"]
       },
 
       // ─── avatar_10 ─── APPLE
@@ -808,7 +928,7 @@
           { quote: "The most enthusiastic food companion I've ever met. Chaotic but inspired.", from: "Tomato" },
           { quote: "You never know what you're getting with Apple. You always end up eating something incredible.", from: "Cheese" }
         ],
-        features: ["🤖 AI Food Assistant", "🍴 Nearby Restaurants", "🔗 TikTok Import", "⚡ Quick-Add"]
+        features: ["🤖 AI Food Assistant", "🔗 TikTok Import", "⚡ Quick-Add"]
       },
 
       // ─── avatar_11 ─── CARROT
@@ -968,7 +1088,7 @@
           { quote: "Pizza showed up with food at exactly the right moment. They always show up with food at exactly the right moment.", from: "Strawberry" },
           { quote: "The most quietly capable food person I know. The group would fall apart without them.", from: "Cheese" }
         ],
-        features: ["📅 Meal Planner", "🍴 Nearby Restaurants", "⭐ Saved Favorites", "🛒 Grocery Lists"]
+        features: ["📅 Meal Planner", "⭐ Saved Favorites", "🛒 Grocery Lists"]
       },
 
       // ─── avatar_16 ─── FRENCH FRY
@@ -1000,13 +1120,20 @@
           { quote: "Ate cereal for dinner three nights in a row and described each night as 'actually pretty good'.", from: "Celery" },
           { quote: "The most unbothered person at any table. It's genuinely something to aspire to.", from: "Blueberry" }
         ],
-        features: ["🤖 AI Food Assistant", "🍴 Nearby Restaurants", "⚡ Quick-Add", "🤖 Cook-from-Fridge AI"]
+        features: ["🤖 AI Food Assistant", "⚡ Quick-Add", "🤖 Cook-from-Fridge AI"]
       }
 
     };
 
     const SCREENS = [
       { // 0
+        type: 'story',
+        text: '<h2 style="font-size: 32px; font-weight: 600; line-height: 1.2; margin: 0;">What Foodsona are you?</h2>',
+        scene: '<div class="composed-emoji" style="font-size: 7rem;">🥑</div>',
+        btn: "Start",
+        debugBtn: true // flag for injecting debug button
+      },
+      { // 1
         type: 'story',
         text: '<p><em>You wake up on a kitchen counter in ForkVille — a city where every resident is a food character and nobody finds this unusual.</em></p>',
         scene: '<div class="composed-emoji" style="top: 20%; left: 10%; font-size: 5rem;">❓</div><div class="composed-emoji" style="top: 10%; right: 5%; font-size: 2rem;">🎪</div>',
@@ -1186,11 +1313,17 @@
     }
 
     function buildStoryScreen(data, idx) {
+      let debugHTML = '';
+      if (data.debugBtn) {
+        debugHTML = `<button class="fk-btn-stack" style="margin-top: 10px; background: transparent; border: 1px dashed var(--fk-primary); color: var(--fk-primary);" onclick="showScreen(SCREENS.length - 1)">[DEBUG] Skip to Result</button>`;
+      }
+
       return `
         <div class="narrative-text">${data.text}</div>
         <div class="scene-box">${data.scene}</div>
         <div class="action-area">
           <button class="fk-btn-stack fk-btn-continue" onclick="advance(${idx})">${data.btn}</button>
+          ${debugHTML}
         </div>
       `;
     }
@@ -1292,97 +1425,182 @@
     function renderResultCard(avatarId) {
       const data = RESULTS[avatarId] || RESULTS['avatar_01']; // fallback
 
+      // Generate pseudo-random codes for receipt items based on strings
+      const hashCode = s => s.split('').reduce((a, b) => { a = ((a << 5) - a) + b.charCodeAt(0); return a & a }, 0).toString().replace('-', '').slice(0, 5);
+
       let strengthsHTML = '';
-      data.strengths.forEach(s => strengthsHTML += `<li class="stat-item">${s}</li>`);
+      data.strengths.slice(0, 3).forEach(s => {
+        strengthsHTML += `
+          <div class="receipt-item">
+            <span class="receipt-item-name">${s}</span>
+            <span class="receipt-item-code">${hashCode(s)}</span>
+          </div>`;
+      });
 
       let weaknessesHTML = '';
-      data.weaknesses.forEach(w => weaknessesHTML += `<li class="stat-item">${w}</li>`);
-
-      let featuresHTML = '';
-      data.features.forEach(f => featuresHTML += `<span class="fk-chip" style="margin-right: 4px; margin-bottom: 4px;">${f}</span>`);
+      data.weaknesses.slice(0, 3).forEach(w => {
+        weaknessesHTML += `
+          <div class="receipt-item">
+            <span class="receipt-item-name">${w}</span>
+            <span class="receipt-item-code">${hashCode(w)}</span>
+          </div>`;
+      });
 
       let compatHTML = '';
       if (data.compatibility) {
-        data.compatibility.forEach(c => compatHTML += `<span class="fk-chip" style="background:var(--fk-primary); color:white; margin-right:4px;">${c}</span>`);
+        data.compatibility.forEach(c => {
+          compatHTML += `<span style="display:inline-block; border:1px solid #333; padding:2px 6px; margin:2px 4px 6px 0; font-size:12px; font-weight:bold;">${c.toUpperCase()}</span>`;
+        });
+      }
+
+      let oldFeaturesHTML = '';
+      if (data.features) {
+        data.features.forEach(f => {
+          oldFeaturesHTML += `<span style="display:inline-block; border:1px dashed #888; padding:2px 6px; margin:2px 4px 6px 0; font-size:12px;">${f}</span>`;
+        });
       }
 
       let reviewsHTML = '';
       if (data.peers) {
-        data.peers.forEach(r => reviewsHTML += `<div class="review-item">"${r.quote}" — <span class="review-author">${r.from}</span></div>`);
+        data.peers.slice(0, 1).forEach(r => {
+          reviewsHTML += `
+            <div style="margin-bottom: 8px; font-size: 13px; line-height: 1.3;">
+              <div style="font-style:italic; margin-bottom:2px;">"${r.quote}"</div>
+              <div style="text-align:right; font-weight:bold;">— ${r.from}</div>
+            </div>`;
+        });
       }
 
-      // Update our fallback AppStore URL property dynamically for the CTA
-      const finalUrl = `forkcast://onboarding?foodsona=${avatarId}`;
+      let featureLinesHTML = '';
+      if (data.featureLines) {
+        data.featureLines.forEach(f => {
+          featureLinesHTML += `
+            <div class="receipt-item">
+              <span class="receipt-item-name">${f.name}</span>
+              <span class="receipt-item-code" style="text-align: right; font-size: 11px;">${f.voiceLine}</span>
+              <span class="receipt-item-code" style="text-align: right;">${f.code}</span>
+            </div>`;
+        });
+      }
+
+      function getEmojiForAvatar(avatarId) {
+        const emojis = {
+          'avatar_01': '🥑', 'avatar_02': '🫐', 'avatar_03': '🥦', 'avatar_04': '🍓',
+          'avatar_05': '🧅', 'avatar_06': '🧀', 'avatar_07': '🧄', 'avatar_08': '🍄',
+          'avatar_09': '🍅', 'avatar_10': '🍎', 'avatar_11': '🥕', 'avatar_12': '🥬',
+          'avatar_13': '🍫', 'avatar_14': '🍦', 'avatar_15': '🍕', 'avatar_16': '🍟'
+        };
+        return emojis[avatarId] || '🍽️';
+      }
+
+      function generateMiniFeaturesHTML(features) {
+        if (!features) return '';
+        return features.map(f => `
+          <div class="feature-row">
+            <span class="feature-name">${f.name}</span>
+            <span class="feature-voice">${f.voiceLine}</span>
+          </div>
+        `).join('');
+      }
+
+      const today = new Date();
+      const dateStr = today.toLocaleDateString();
+      const timeStr = today.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
       const cardHTML = `
-        <div id="id-card">
-          <div class="card-header">
-            <div class="card-header-caption caption1Condensed" style="margin-bottom: 0.5rem; text-transform: uppercase;">Drumroll… your Forkcast ID is ready!</div>
-            <div class="caption1Condensed" style="letter-spacing:0.15em; color: var(--fk-primary);">FORKCAST ID</div>
-            <div class="card-title" style="margin-bottom: 2px;">${data.name}</div>
-            <div class="card-subtitle">${data.subtitle}</div>
-          </div>
-          
-          <div class="card-row-split" style="padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--fk-grey5);">
-            <div class="card-avatar-cell" style="flex: 0 0 110px;">
-              <img src="assets/${data.avatar}.png" alt="${data.name}" class="card-avatar-img" onerror="this.src=''; this.alt='❓'" />
+        <div class="receipt-container" style="max-width: 400px; margin: 0 auto;">
+          <div id="id-card">
+            <div class="receipt-header">
+              <div class="receipt-title">FORKCAST MARKET</div>
+              <div class="receipt-subtitle">Thank you for shopping!</div>
+              <div class="receipt-meta">${dateStr} ${timeStr} • REG 04 • CSH ${data.name.substring(0, 3).toUpperCase()}-1</div>
             </div>
-            <div class="card-stats-cell" style="flex: 1; padding-left: 1rem;">
-              <ul class="stat-list">
-                <li class="stat-title">⚡ Strengths:</li>
-                ${strengthsHTML}
-              </ul>
-              <ul class="stat-list" style="margin-top: 1rem;">
-                <li class="stat-title">⚠️ Weaknesses:</li>
-                ${weaknessesHTML}
-              </ul>
+            
+            <div class="receipt-avatar-wrapper">
+              <img src="assets/${data.avatar}.png" alt="${data.name}" class="receipt-avatar" onerror="this.src=''; this.alt='❓'" />
+              <div style="font-weight: bold; font-size: 20px; text-transform: uppercase; margin-top: 8px;">${data.name}</div>
+              <div style="font-size: 14px;">${data.subtitle}</div>
             </div>
-          </div>
 
-          <div class="card-catchphrase">
-            "${data.catchphrase}"
-          </div>
-
-          <div class="card-section">
-            <div class="stat-item" style="color:var(--fk-label); margin-bottom: 8px;">
-              <strong>🧭 Alignment:</strong> ${data.alignment}
+            <div class="receipt-section">
+              <div class="receipt-section-title">STRENGTHS</div>
+              ${strengthsHTML}
             </div>
-            <div class="stat-item" style="color:var(--fk-label);">
-              <strong>🎯 Hidden Talent:</strong> ${data.hiddenTalent}
-            </div>
-          </div>
 
-          <div class="card-section">
-            <div class="card-section-title">💚 Most compatible with:</div>
-            <div class="features-wrapper">
-              ${compatHTML}
+            <div class="receipt-section">
+              <div class="receipt-section-title">WEAKNESSES</div>
+              ${weaknessesHTML}
             </div>
-          </div>
 
-          <div class="card-section">
-            <div class="card-section-title" style="color:var(--fk-label-tertiary);">🍽️ Forkcast built this for you:</div>
-            <div class="features-wrapper">
-              ${featuresHTML}
+            <div class="receipt-section">
+              <div class="receipt-section-title">DETAILS</div>
+              <div class="receipt-item">
+                <span class="receipt-item-name">Alignment</span>
+                <span class="receipt-item-code" style="text-align: right; font-size: 11px;">${data.alignment}</span>
+              </div>
+              <div class="receipt-item">
+                <span class="receipt-item-name">Hidden Talent</span>
+                <span class="receipt-item-code" style="text-align: right; font-size: 11px;">${data.hiddenTalent}</span>
+              </div>
             </div>
-          </div>
 
-          <div class="card-reviews">
-            <div class="caption1Condensed" style="margin-bottom:12px; color:var(--fk-primary);">⭐ Peer Reviews:</div>
-            ${reviewsHTML}
+            <div class="receipt-section">
+              <div class="receipt-section-title">COMPATIBLE WITH</div>
+              <div>${compatHTML}</div>
+            </div>
+
+            <div class="receipt-section">
+              <div class="receipt-section-title">BUILT FOR YOU</div>
+              <div>${oldFeaturesHTML}</div>
+            </div>
+
+            <div class="receipt-section">
+              <div class="receipt-section-title">PEER REVIEWS</div>
+              <div>${reviewsHTML}</div>
+            </div>
+            
+            <div class="receipt-catchphrase">
+              "${data.catchphrase}"
+            </div>
+
+            <div class="receipt-barcode">
+              *${data.name.toUpperCase()}*
+            </div>
           </div>
         </div>
 
-        <div class="result-actions">
-          <button class="fk-btn-appstore" onclick="openAppStore('${finalUrl}')">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM11.4 16.7L8.9 14.2C8.5 13.8 8.5 13.2 8.9 12.8C9.3 12.4 9.9 12.4 10.3 12.8L11.4 13.9L14.7 9.5C15.1 9 15.7 8.9 16.2 9.2C16.7 9.6 16.8 10.2 16.5 10.7L12.5 16.2C12.3 16.5 12.1 16.6 11.8 16.7C11.6 16.7 11.5 16.7 11.4 16.7Z" fill="white"/>
-            </svg>
-            Download on the App Store
-          </button>
-          <button class="fk-btn-tertiary" onclick="shareQuiz(this)" style="background: var(--fk-grey6); margin-top: -4px;">
-            🔗 Share Quiz
-          </button>
-          <button class="fk-btn-tertiary" onclick="retakeQuiz()">↺ Try again</button>
+        <div class="cta-banner">
+          <div class="cta-left">
+            <div class="cta-badge">${getEmojiForAvatar(data.avatar)} ${data.name}</div>
+
+            <div class="cta-headline">
+              Built for the<br>way you eat.
+            </div>
+
+            <div class="cta-subline">
+              ${data.bridgeLine ? data.bridgeLine.replace(/\n/g, '<br/>') : ''}
+            </div>
+
+            <button class="cta-button" onclick="openAppStore('forkcast://onboarding?foodsona=${avatarId}')">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle; margin-right: 6px; margin-top: -2px;">
+                <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM11.4 16.7L8.9 14.2C8.5 13.8 8.5 13.2 8.9 12.8C9.3 12.4 9.9 12.4 10.3 12.8L11.4 13.9L14.7 9.5C15.1 9 15.7 8.9 16.2 9.2C16.7 9.6 16.8 10.2 16.5 10.7L12.5 16.2C12.3 16.5 12.1 16.6 11.8 16.7C11.6 16.7 11.5 16.7 11.4 16.7Z" fill="var(--fk-background)"/>
+              </svg>
+              ${data.ctaLabel || `Get Forkcast — made for ${data.name}s`}
+            </button>
+
+            <div class="cta-share" onclick="shareQuiz(this)">
+              🔗 Share your Foodsona &rarr;
+            </div>
+            
+            <div class="cta-share" onclick="retakeQuiz()" style="margin-top: 0.75rem; color: rgba(255,255,255,0.4);">
+              ↺ Try again
+            </div>
+          </div>
+
+          <div class="cta-right">
+            <img class="cta-phone" src="assets/home-mockup.png" alt="Forkcast app" />
+            <img class="mockup-avatar" src="assets/${data.avatar}.png" alt="${data.name} avatar" />
+          </div>
         </div>
       `;
 
