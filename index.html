@@ -1,0 +1,1450 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>What's Your Foodsona? | Forkcast</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75,300;12..96,75,400;12..96,75,600;12..96,100,300;12..96,100,400;12..96,100,600&display=swap"
+    rel="stylesheet">
+
+  <style>
+    :root {
+      /* Brand */
+      --fk-primary: #F2A93B;
+      --fk-primary-dark: #EF8644;
+      --fk-primary-disabled: #F9DAB7;
+      --fk-green: #2D5E49;
+
+      /* System & Backgrounds */
+      --fk-background: #FFFFFF;
+      --fk-black: #190303;
+      --fk-destructive: #B20900;
+
+      /* Grey Scale (warm/peach-tinted) */
+      --fk-grey1: #A68B59;
+      --fk-grey2: #D0AD6C;
+      --fk-grey3: #F2CE8C;
+      --fk-grey4: #FFE8BD;
+      --fk-grey5: #FFF1D6;
+      --fk-grey6: #FFF6E5;
+
+      /* Labels */
+      --fk-label: #630E03;
+      --fk-label-secondary: #B09E79;
+      --fk-label-tertiary: rgba(124, 94, 38, 0.6);
+      --fk-label-quaternary: rgba(124, 94, 38, 0.3);
+      --fk-label-disabled: #C7B0AD;
+
+      --font-bricolage: "Bricolage Grotesque", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--fk-background);
+      color: var(--fk-label);
+      font-family: var(--font-bricolage);
+      overflow-x: hidden;
+      overflow-y: auto;
+      min-height: 100vh;
+      min-height: 100dvh;
+      width: 100vw;
+    }
+
+    /* Container */
+    .app-container {
+      max-width: 560px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 3rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      min-height: 100vh;
+      min-height: 100dvh;
+    }
+
+    /* Typography Classes */
+    .narrative-text {
+      font-family: var(--font-bricolage);
+      font-size: 17px;
+      font-weight: 400;
+      font-variation-settings: "wdth" 100;
+      line-height: 1.5;
+      color: var(--fk-label);
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .question-title {
+      font-family: var(--font-bricolage);
+      font-size: 20px;
+      font-weight: 600;
+      font-variation-settings: "wdth" 100;
+      line-height: 1.3;
+      color: var(--fk-label);
+      text-align: center;
+      margin-top: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .bodyCondensed {
+      font-family: var(--font-bricolage);
+      font-size: 18px;
+      font-weight: 400;
+      font-variation-settings: "wdth" 75;
+      line-height: 1.4;
+    }
+
+    .caption1Condensed {
+      font-family: var(--font-bricolage);
+      font-size: 14px;
+      font-weight: 400;
+      font-variation-settings: "wdth" 75;
+      line-height: 1.4;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Scene Illustration Box */
+    .scene-box {
+      width: 100%;
+      aspect-ratio: 4/3;
+      background: var(--fk-grey6);
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--fk-grey5);
+    }
+
+    .composed-emoji {
+      position: absolute;
+      font-size: 4rem;
+      user-select: none;
+    }
+
+    /* Button Stack */
+    .action-area {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+      margin-top: auto;
+      /* Prop down if container is taller */
+    }
+
+    .fk-btn-stack {
+      width: 100%;
+      max-width: 480px;
+      background: var(--fk-grey6);
+      color: var(--fk-label);
+      border: 2px solid transparent;
+      border-radius: 14px;
+      padding: 14px 20px;
+      font-family: var(--font-bricolage);
+      font-size: 18px;
+      font-weight: 400;
+      font-variation-settings: "wdth" 75;
+      cursor: pointer;
+      transition: all 0.2s ease-out;
+      text-align: center;
+      line-height: 1.3;
+      min-width: 240px;
+    }
+
+    .fk-btn-stack:hover {
+      border-color: var(--fk-primary);
+      background: #FFFFFF;
+    }
+
+    .fk-btn-stack:active,
+    .fk-btn-stack.selected {
+      background: var(--fk-primary);
+      border-color: var(--fk-primary);
+      transform: scale(0.97);
+    }
+
+    .fk-btn-continue {
+      font-weight: 600;
+      min-width: 160px;
+      width: fit-content;
+      background: var(--fk-black);
+      color: white;
+      border: none;
+    }
+
+    .fk-btn-continue:hover {
+      background: var(--fk-label-secondary);
+      border: none;
+    }
+
+    .fk-btn-continue:active {
+      transform: scale(0.97);
+    }
+
+    /* Screen Transitions */
+    .screen {
+      display: none;
+      flex-direction: column;
+      width: 100%;
+      height: 100%;
+    }
+
+    .screen.active {
+      display: flex;
+      animation: fadeUp 0.4s ease forwards;
+    }
+
+    @keyframes fadeUp {
+      0% {
+        transform: translateY(20px);
+        opacity: 0;
+      }
+
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    /* Progress Indicator */
+    #progress-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: transparent;
+      z-index: 100;
+    }
+
+    #progress-bar {
+      height: 100%;
+      background: var(--fk-primary);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    /* Result ID Card */
+    #id-card {
+      background: var(--fk-grey6);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 520px;
+      margin: 0 auto 2rem auto;
+      border: 1px solid var(--fk-grey5);
+    }
+
+    .card-header {
+      background: var(--fk-label);
+      color: #FFFFFF;
+      text-align: center;
+      padding: 1.5rem;
+    }
+
+    .card-header-caption {
+      color: var(--fk-primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .card-title {
+      font-size: 32px;
+      font-weight: 600;
+      font-variation-settings: "wdth" 100;
+    }
+
+    .card-row-split {
+      display: flex;
+      background: rgba(45, 106, 79, 0.15);
+      /* fk-green 15% */
+      border-bottom: 1px solid var(--fk-grey5);
+    }
+
+    .card-avatar-cell {
+      flex: 0 0 40%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
+      border-right: 1px solid var(--fk-grey5);
+    }
+
+    .card-avatar-img {
+      width: 110px;
+      height: 110px;
+      object-fit: contain;
+    }
+
+    .card-stats-cell {
+      flex: 1;
+      padding: 1.5rem 1rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .stat-list {
+      list-style-type: none;
+      margin-bottom: 1rem;
+    }
+
+    .stat-list:last-child {
+      margin-bottom: 0;
+    }
+
+    .stat-title {
+      font-weight: 600;
+      font-size: 15px;
+      margin-bottom: 4px;
+      color: var(--fk-label);
+    }
+
+    .stat-item {
+      font-size: 14px;
+      color: var(--fk-label-secondary);
+      margin-bottom: 2px;
+      position: relative;
+      padding-left: 12px;
+    }
+
+    .stat-item::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--fk-label-tertiary);
+    }
+
+    .card-subtitle {
+      font-size: 14px;
+      color: rgba(242, 169, 59, 0.7);
+      /* fk-primary at 70% */
+      margin-top: 4px;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+    }
+
+    .card-catchphrase {
+      background: var(--fk-grey5);
+      padding: 1.25rem;
+      text-align: center;
+      font-style: italic;
+      color: var(--fk-label);
+      border-bottom: 1px solid var(--fk-grey4);
+      font-size: 15px;
+    }
+
+    .card-section {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--fk-grey5);
+      background: var(--fk-background);
+    }
+
+    .card-section-title {
+      font-weight: 600;
+      font-size: 15px;
+      color: var(--fk-label);
+      margin-bottom: 8px;
+    }
+
+    .card-text {
+      font-size: 14px;
+      color: var(--fk-label-secondary);
+      line-height: 1.4;
+    }
+
+    .features-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .fk-chip {
+      background: var(--fk-primary);
+      color: var(--fk-label);
+      border-radius: 16px;
+      padding: 6px 14px;
+      font-family: var(--font-bricolage);
+      font-size: 14px;
+      font-weight: 600;
+      font-variation-settings: "wdth" 75;
+      display: inline-block;
+    }
+
+    .card-reviews {
+      background: rgba(26, 26, 20, 0.9);
+      /* fk-label 90% */
+      padding: 1.5rem;
+    }
+
+    .review-item {
+      color: #FFFFFF;
+      font-size: 14px;
+      font-style: italic;
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+
+    .review-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .review-author {
+      color: var(--fk-primary);
+      font-weight: 600;
+      font-style: normal;
+    }
+
+    /* Result Actions */
+    .result-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 100%;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    .fk-btn-appstore {
+      background: var(--fk-label);
+      color: white;
+      width: 100%;
+      border: none;
+      border-radius: 14px;
+      padding: 16px;
+      font-family: var(--font-bricolage);
+      font-size: 20px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .fk-btn-tertiary {
+      background: transparent;
+      color: var(--fk-primary-dark);
+      border: none;
+      font-family: var(--font-bricolage);
+      font-size: 16px;
+      font-weight: 600;
+      padding: 12px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Progress Bar -->
+  <div id="progress-container">
+    <div id="progress-bar"></div>
+  </div>
+
+  <div class="app-container" id="app-root">
+    <!-- Screens dynamically injected here -->
+  </div>
+
+  <script>
+    // --- Data Models ---
+
+    // The exact 16 persona array lengths from OnboardingService.swift [Q1, Q2, Q3, Q4]
+    // Q1: Frequency (10=Daily, 7=4+, 4=Rarely, 1=Never)
+    // Q2: Plan (10=Sunday, 7=Day before, 4=Morning, 1=Hungry)
+    // Q3: New (10=Love, 7=Occasional, 4=Familiar, 1=Rotate 5)
+    // Q4: Health (10=Taste, 7=Important, 4=Balance, 1=Fuel) Note: mapped from prompt logic
+
+    const PERSONA_SCORES = [
+      // [cookFreq, planStyle, openToNew, tasteFirst, socialFood, kitchenChaos]
+      { scores: [10, 10, 10, 10, 10, 10], id: "avatar_01", name: "Avocado" },
+      { scores: [10, 2, 10, 10, 10, 2], id: "avatar_02", name: "Blueberry" },
+      { scores: [10, 10, 2, 10, 2, 10], id: "avatar_03", name: "Broccoli" },
+      { scores: [10, 2, 2, 10, 2, 2], id: "avatar_04", name: "Strawberry" },
+      { scores: [10, 10, 10, 2, 10, 10], id: "avatar_05", name: "Onion" },
+      { scores: [10, 2, 10, 2, 2, 2], id: "avatar_06", name: "Cheese" },
+      { scores: [10, 10, 2, 2, 10, 10], id: "avatar_07", name: "Garlic" },
+      { scores: [10, 2, 2, 2, 2, 10], id: "avatar_08", name: "Mushroom" },
+      { scores: [2, 10, 10, 10, 10, 2], id: "avatar_09", name: "Tomato" },
+      { scores: [2, 2, 10, 10, 2, 2], id: "avatar_10", name: "Apple" },
+      { scores: [2, 10, 2, 10, 10, 10], id: "avatar_11", name: "Carrot" },
+      { scores: [2, 2, 2, 10, 2, 10], id: "avatar_12", name: "Celery" },
+      { scores: [2, 10, 10, 2, 10, 2], id: "avatar_13", name: "Chocolate" },
+      { scores: [2, 2, 10, 2, 2, 10], id: "avatar_14", name: "Ice Cream" },
+      { scores: [2, 10, 2, 2, 10, 2], id: "avatar_15", name: "Pizza" },
+      { scores: [2, 2, 2, 2, 2, 2], id: "avatar_16", name: "French Fry" }
+    ];
+
+    const RESULTS = {
+      // ─── avatar_01 ─── AVOCADO
+      avatar_01: {
+        avatar: "avatar_01",
+        name: "Avocado",
+        subtitle: "The Complete Package",
+        alignment: "Lawful Good · Chaotic only when it produces a better dish",
+        strengths: [
+          "Cooks every single day without being asked",
+          "Has a meal plan, a backup plan, and a backup backup plan",
+          "Tries every cuisine without hesitation",
+          "Reads the full recipe before starting — every time",
+          "The person everyone wants hosting dinner",
+          "Their fridge is always stocked with exactly what you need"
+        ],
+        weaknesses: [
+          "Subtly clocks your knife technique",
+          "Will reorganise your spice rack if left unsupervised",
+          "Slightly offended when people don't finish their plate",
+          "Takes 45 minutes to pick a restaurant because every option deserves consideration",
+          "Has strong feelings about mise en place that they will share"
+        ],
+        catchphrase: "I prepped this yesterday. And the day before.",
+        hiddenTalent: "Can estimate cooking times to within 30 seconds without a timer. Every single time.",
+        compatibility: ["Blueberry", "Tomato", "Carrot"],
+        peers: [
+          { quote: "Made a 5-course tasting menu on a Tuesday. For themselves. Just to practice.", from: "Tomato" },
+          { quote: "Borrowed their meal plan once. Changed my life. I've never given it back.", from: "Garlic" },
+          { quote: "The most reliable person in any kitchen. Intimidating but in a warm way.", from: "Cheese" }
+        ],
+        features: ["📅 Week Meal Planner", "✨ Magic Fill", "🌍 AI Recipes", "🧊 Fridge Tracker"]
+      },
+
+      // ─── avatar_02 ─── BLUEBERRY
+      avatar_02: {
+        avatar: "avatar_02",
+        name: "Blueberry",
+        subtitle: "The Spontaneous Foodie",
+        alignment: "Chaotic Good · Never a plan. Always a great meal.",
+        strengths: [
+          "Cooks daily with genuine enthusiasm",
+          "Zero hesitation with unfamiliar ingredients",
+          "Eats for joy, exclusively and unapologetically",
+          "The person who texts 'come over' at 7pm and somehow feeds everyone",
+          "Can make conversation with literally any food culture",
+          "Never once complained about a restaurant pick"
+        ],
+        weaknesses: [
+          "Decides dinner at 6:59pm",
+          "Has started cooking before confirming they have all the ingredients",
+          "Grocery list? The concept is fuzzy.",
+          "Kitchen looks like a crime scene. Food is incredible.",
+          "Will propose a new restaurant they heard about 4 minutes ago with full confidence"
+        ],
+        catchphrase: "What are we feeling? No idea. Let's find out.",
+        hiddenTalent: "Can clear out a fridge of random leftovers and produce something genuinely good. Every time.",
+        compatibility: ["Avocado", "Apple", "Cheese"],
+        peers: [
+          { quote: "Texted me at 7pm: 'Korean BBQ, come over'. 8 people showed up unannounced. Zero warning. It was the best night.", from: "Garlic" },
+          { quote: "No plan. All vibes. The best meals I've had in years came from their kitchen.", from: "Chocolate" },
+          { quote: "I'd follow Blueberry into any kitchen, any city, any time.", from: "Ice Cream" }
+        ],
+        features: ["🤖 AI Food Assistant", "🍴 Nearby Restaurants", "🧪 AI Recipes", "⚡ Quick-Add"]
+      },
+
+      // ─── avatar_03 ─── BROCCOLI
+      avatar_03: {
+        avatar: "avatar_03",
+        name: "Broccoli",
+        subtitle: "The Devoted Classic",
+        alignment: "Lawful Neutral · The classics exist for a reason and that reason is correct",
+        strengths: [
+          "Cooks every day, reliably, without drama",
+          "Has every meal this week already planned",
+          "Perfected 10 dishes to a near-professional level",
+          "Never once caused a grocery budget crisis",
+          "Always has breakfast sorted",
+          "The person you call when you want actual good home cooking"
+        ],
+        weaknesses: [
+          "Has made the same breakfast 400+ consecutive times",
+          "Gets visibly nervous at fusion restaurants",
+          "Menu anxiety at unfamiliar places is a documented condition",
+          "Will quietly clock how other people season their food",
+          "Considers 'what's for dinner' a question with one correct answer per day of the week"
+        ],
+        catchphrase: "I've perfected this. There's genuinely no reason to change it.",
+        hiddenTalent: "Their 'simple weeknight pasta' is objectively better than most restaurants. No explanation given.",
+        compatibility: ["Garlic", "Avocado", "Carrot"],
+        peers: [
+          { quote: "Every dinner at Broccoli's is perfect. The same perfect dinner. I'm not complaining once.", from: "Garlic" },
+          { quote: "Asked me to try a new recipe last year. Still thinking about whether to do it.", from: "Mushroom" },
+          { quote: "The most reliable cook I know. Not the most adventurous. Reliably perfect.", from: "Avocado" }
+        ],
+        features: ["📅 Week Meal Planner", "📱 iOS Calendar Sync", "🛒 Auto Grocery Lists", "⭐ Saved Favorites"]
+      },
+
+      // ─── avatar_04 ─── STRAWBERRY
+      avatar_04: {
+        avatar: "avatar_04",
+        name: "Strawberry",
+        subtitle: "The Loyal Home Cook",
+        alignment: "Neutral Good · Why fix what isn't broken",
+        strengths: [
+          "Cooks all the time with genuine love for it",
+          "Eats for pure joy without guilt",
+          "Has a rotating roster of perfected favourites",
+          "Always feeds people, no occasion required",
+          "Knows exactly what they like and commits to it",
+          "The person you call when you want comforting food fast"
+        ],
+        weaknesses: [
+          "Impulse groceries regularly derail the budget",
+          "The word 'fusion' causes mild anxiety",
+          "Sticks to 5-ish dishes regardless of season or trend",
+          "Will make the same bolognese for 10 years and consider that an achievement (it is)",
+          "Doesn't understand why anyone would eat something they don't already love"
+        ],
+        catchphrase: "I don't need a plan. I need butter and a hot pan.",
+        hiddenTalent: "Makes people feel genuinely cared for through food without ever once following a recipe exactly.",
+        compatibility: ["Blueberry", "Pizza", "Cheese"],
+        peers: [
+          { quote: "Showed up unannounced with food at 11pm. It was exactly what I needed. No idea how they knew.", from: "Pizza" },
+          { quote: "Will make the same bolognese forever. It's still the best bolognese. Forever is fine.", from: "Tomato" },
+          { quote: "Never has a plan. Always has food. I genuinely don't understand the mechanics.", from: "Broccoli" }
+        ],
+        features: ["🤖 Cook-from-Fridge AI", "⭐ Saved Favorites", "⚡ Quick-Add", "🛒 Grocery Lists"]
+      },
+
+      // ─── avatar_05 ─── ONION
+      avatar_05: {
+        avatar: "avatar_05",
+        name: "Onion",
+        subtitle: "The Disciplined Explorer",
+        alignment: "Lawful Good · Food is both fuel and art. Mostly fuel.",
+        strengths: [
+          "Cooks every day with intention",
+          "Plans everything in advance and executes it",
+          "Enthusiastic about every cuisine they haven't tried yet",
+          "Loves feeding people, makes every meal an occasion",
+          "Kitchen is organised enough to be impressive",
+          "Actually finishes a recipe without improvising halfway through"
+        ],
+        weaknesses: [
+          "Will analyse the nutritional content before tasting",
+          "Explains the health benefits of dinner unprompted",
+          "Meal prep containers are colour-coded in a way that raises questions",
+          "Food is fuel first, joy second — and people can tell",
+          "Has strong opinions about 'eating properly' that occasionally surface at restaurants"
+        ],
+        catchphrase: "Every meal is an opportunity to do better.",
+        hiddenTalent: "Their meal prep batch cooking is so efficient it borders on a superpower. Sunday sorted by 11am.",
+        compatibility: ["Carrot", "Avocado", "Broccoli"],
+        peers: [
+          { quote: "Explained the glycaemic index of my birthday cake. At my birthday party. They were right though.", from: "Apple" },
+          { quote: "Their meal prep makes me feel like I need to sort my life out. Weekly.", from: "Celery" },
+          { quote: "Makes genuinely adventurous food that is also somehow perfectly balanced. Annoying.", from: "Avocado" }
+        ],
+        features: ["📅 Meal Planner", "🌍 Recipe Explorer", "📊 Nutrition Display", "🧊 Fridge Inventory"]
+      },
+
+      // ─── avatar_06 ─── CHEESE
+      avatar_06: {
+        avatar: "avatar_06",
+        name: "Cheese",
+        subtitle: "The Social Foodie",
+        alignment: "Chaotic Good · The best nights always start with 'I found this place'",
+        strengths: [
+          "Cooks frequently and always for other people",
+          "Will try literally anything without being asked twice",
+          "Eats for joy every single time",
+          "Knows everyone at every restaurant they've been to",
+          "Can turn any meal into a social event",
+          "Introduced half their friends to cuisines they now love"
+        ],
+        weaknesses: [
+          "Planning is a loose suggestion at best",
+          "Will spontaneously decide to host dinner for 10 people",
+          "Has a 'system' for groceries that only makes sense to them",
+          "Starts suggesting dessert before the main is finished",
+          "Once brought three different dipping sauces to a picnic nobody planned"
+        ],
+        catchphrase: "Let's just see what happens. It'll be good. It's always good.",
+        hiddenTalent: "Somehow always ends up at the best table in the restaurant without a reservation.",
+        compatibility: ["Blueberry", "Strawberry", "Pizza"],
+        peers: [
+          { quote: "Introduced me to 12 different cuisines this year. I can't keep up. I don't want to keep up.", from: "Apple" },
+          { quote: "Brought five people and a cheese board to what was supposed to be a quiet dinner. It was the best night.", from: "Pizza" },
+          { quote: "You can always count on Cheese to make the meal into a whole thing. In the best way.", from: "Strawberry" }
+        ],
+        features: ["🤖 AI Food Assistant", "🍴 Nearby Restaurants", "🔗 URL Import", "⚡ Quick-Add"]
+      },
+
+      // ─── avatar_07 ─── GARLIC
+      avatar_07: {
+        avatar: "avatar_07",
+        name: "Garlic",
+        subtitle: "The Devoted Planner",
+        alignment: "Lawful Neutral · The meal plan is law. The meal plan is always correct.",
+        strengths: [
+          "Cooks constantly and with total commitment",
+          "Never opens the fridge without knowing exactly what they're making",
+          "Feeds everyone around them consistently and reliably",
+          "Has a genuine talent for making familiar food taste exceptional",
+          "Always buys the right amount at the grocery store",
+          "The person who brings the food when someone's had a bad week"
+        ],
+        weaknesses: [
+          "Deeply unadventurous — will not be moved by menus",
+          "Has declined a restaurant suggestion for being 'too unpredictable'",
+          "Their response to 'let's try something new' is a long pause",
+          "Nutritional balance is not a priority — joy within known parameters is",
+          "Considers meal planning a love language and is slightly confused when others don't"
+        ],
+        catchphrase: "I know what I like. I'm very good at it. This is enough.",
+        hiddenTalent: "Can make a 3-ingredient meal taste like it took all day. The technique is the secret.",
+        compatibility: ["Broccoli", "Onion", "Avocado"],
+        peers: [
+          { quote: "Every dinner at Garlic's is perfect. The same perfect dinner for 4 years. I would eat it forever.", from: "Broccoli" },
+          { quote: "Asked them to try a new place once. The negotiation took 3 weeks. The place was great. They admitted it.", from: "Mushroom" },
+          { quote: "Most reliable cook alive. Not the most spontaneous. Reliably extraordinary.", from: "Avocado" }
+        ],
+        features: ["⭐ Saved Favorites", "📅 Week Meal Planner", "🛒 Grocery Lists", "🧊 Fridge Inventory"]
+      },
+
+      // ─── avatar_08 ─── MUSHROOM
+      avatar_08: {
+        avatar: "avatar_08",
+        name: "Mushroom",
+        subtitle: "The Quiet Technician",
+        alignment: "True Neutral · The process is the point. The outcome is secondary.",
+        strengths: [
+          "Cooks frequently with total focus and no drama",
+          "Kitchen is immaculate — before, during, and after",
+          "Treats every meal as a chance to improve technique",
+          "Never wastes food or over-buys",
+          "Has strong opinions about equipment that are always correct",
+          "Will silently fix whatever's going wrong with a dish without being asked"
+        ],
+        weaknesses: [
+          "Doesn't really cook for other people — it's a solo activity",
+          "Food as social event is mildly exhausting",
+          "Will eat the same meal 4 days in a row without complaint or excitement",
+          "Taste is fine. Technique is the priority. These are different things.",
+          "Has once spent 40 minutes explaining why they chose a specific pan. To themselves."
+        ],
+        catchphrase: "The process is the point. The outcome is secondary.",
+        hiddenTalent: "Knows exactly what went wrong with a dish from the smell alone, before tasting it.",
+        compatibility: ["Broccoli", "Garlic", "Celery"],
+        peers: [
+          { quote: "Watched them spend 20 minutes folding an omelette. It was genuinely the best omelette I've ever had.", from: "Garlic" },
+          { quote: "Mushroom once corrected a restaurant's technique. Politely. In writing. They were right.", from: "Broccoli" },
+          { quote: "The most technically gifted cook I know. Also the most private about it.", from: "Celery" }
+        ],
+        features: ["📊 Nutrition Display", "🧊 Fridge Inventory", "⏰ Expiry Alerts", "📅 Meal Planner"]
+      },
+
+      // ─── avatar_09 ─── TOMATO
+      avatar_09: {
+        avatar: "avatar_09",
+        name: "Tomato",
+        subtitle: "The Passionate Planner Who Outsources The Cooking",
+        alignment: "Lawful Good · Plans everything. Cooks nothing. Eats magnificently.",
+        strengths: [
+          "Plans every meal with genuine care and research",
+          "Eats for pure joy without any guilt whatsoever",
+          "Adventurous — will eat anything once",
+          "Loves feeding people, knows exactly where to take them",
+          "Has never once given a bad restaurant recommendation",
+          "Makes every meal feel like a special occasion without trying"
+        ],
+        weaknesses: [
+          "The home kitchen is mostly decorative",
+          "Will plan a 10-restaurant itinerary instead of making pasta",
+          "Slightly smug about restaurant knowledge in a very endearing way",
+          "Has strong opinions about places they've technically only been to twice",
+          "The concept of 'cooking at home' exists in theory only"
+        ],
+        catchphrase: "I've already made the reservation. You're welcome.",
+        hiddenTalent: "Has a mental map of the best version of every dish within a 20km radius. Never wrong.",
+        compatibility: ["Avocado", "Chocolate", "Pizza"],
+        peers: [
+          { quote: "Planned our entire city food tour. Did not cook once. Somehow the best food trip I've ever been on.", from: "Pizza" },
+          { quote: "Their restaurant spreadsheet has 47 entries with ratings, notes, and best dishes. I just use the spreadsheet.", from: "Chocolate" },
+          { quote: "Tomato's picks are never wrong. I've stopped questioning it and just show up.", from: "Cheese" }
+        ],
+        features: ["🍴 Nearby Restaurants", "📅 Meal Planner", "🌍 Recipe Discovery", "⭐ Saved Favorites"]
+      },
+
+      // ─── avatar_10 ─── APPLE
+      avatar_10: {
+        avatar: "avatar_10",
+        name: "Apple",
+        subtitle: "The Inspired Improviser",
+        alignment: "Chaotic Good · Something will work out. It always does.",
+        strengths: [
+          "Always up for any food, anywhere, any time",
+          "Eats for joy — full commitment, no half measures",
+          "Finds incredible things completely by accident",
+          "Zero anxiety about menus or unfamiliar ingredients",
+          "Makes eating feel like an adventure every single time",
+          "The best person to discover a new neighbourhood with"
+        ],
+        weaknesses: [
+          "Cooks rarely — more of a conceptual home cook",
+          "No plan. Anywhere. Ever.",
+          "Will suggest a new restaurant they heard about 4 minutes ago with complete confidence",
+          "Has a fridge full of interesting ingredients and no idea what to do with them",
+          "Grocery shopping is a creative exercise, not a practical one"
+        ],
+        catchphrase: "I saw someone eating something incredible. We're finding it.",
+        hiddenTalent: "Accidentally stumbles on the best hidden food spots in any city they visit. It's not a skill, it's fate.",
+        compatibility: ["Blueberry", "Cheese", "Ice Cream"],
+        peers: [
+          { quote: "Found the best hidden ramen spot in the city by following a smell down an alley. Completely on purpose apparently.", from: "Blueberry" },
+          { quote: "The most enthusiastic food companion I've ever met. Chaotic but inspired.", from: "Tomato" },
+          { quote: "You never know what you're getting with Apple. You always end up eating something incredible.", from: "Cheese" }
+        ],
+        features: ["🤖 AI Food Assistant", "🍴 Nearby Restaurants", "🔗 TikTok Import", "⚡ Quick-Add"]
+      },
+
+      // ─── avatar_11 ─── CARROT
+      avatar_11: {
+        avatar: "avatar_11",
+        name: "Carrot",
+        subtitle: "The Thoughtful Organiser",
+        alignment: "Lawful Neutral · A good meal is a balanced meal. This is not negotiable.",
+        strengths: [
+          "Plans meals with genuine care and foresight",
+          "Eats well and makes it look easy",
+          "Loves bringing people together around food",
+          "Kitchen is always tidy enough to be comfortable",
+          "Will sort the whole group's dinner if asked",
+          "Nutritional awareness that doesn't make anyone feel bad about their choices"
+        ],
+        weaknesses: [
+          "Doesn't cook very often — more of a planner than a doer",
+          "Taste is nice but balance is the real priority",
+          "Has a 'healthy version' suggestion for every dish that nobody asked for",
+          "Meal planning for fun is a thing they do. Voluntarily.",
+          "Slightly disappointed when people don't eat their vegetables"
+        ],
+        catchphrase: "I already planned the week. There's a sheet. It has tabs.",
+        hiddenTalent: "Can look at a fridge and know exactly what nutritionally balanced meal is possible with what's there.",
+        compatibility: ["Onion", "Avocado", "Broccoli"],
+        peers: [
+          { quote: "Offered to plan my meal prep once. Sent a spreadsheet with three tabs and a shopping list sorted by aisle.", from: "Onion" },
+          { quote: "Carrot makes eating well look genuinely effortless. It's not. I've asked.", from: "Mushroom" },
+          { quote: "Always has a plan. Always shares it. Always right about the plan.", from: "Broccoli" }
+        ],
+        features: ["📅 Meal Planner", "📊 Nutrition Display", "🛒 Grocery Lists", "🧊 Fridge Inventory"]
+      },
+
+      // ─── avatar_12 ─── CELERY
+      avatar_12: {
+        avatar: "avatar_12",
+        name: "Celery",
+        subtitle: "The Minimalist",
+        alignment: "True Neutral · I don't need much. This is not a personality flaw.",
+        strengths: [
+          "Completely unbothered by food decisions",
+          "Eats with genuine enjoyment of simple things",
+          "Zero drama around meals — ever",
+          "Never wastes food or over-complicates a dish",
+          "The most relaxing person to cook with",
+          "Will eat whatever, happily, without comment"
+        ],
+        weaknesses: [
+          "Cooks rarely — occasionally by accident",
+          "No plan. No system. No concern about either.",
+          "Has eaten the same lunch 5 days in a row and found it perfectly satisfying",
+          "Taste is good. Taste is also not the main priority.",
+          "Considers 'what do you want for dinner' a deeply stressful question to receive"
+        ],
+        catchphrase: "I don't need much. This is not a problem.",
+        hiddenTalent: "Can survive a week on three ingredients comfortably and genuinely not mind. On purpose.",
+        compatibility: ["Mushroom", "Garlic", "Broccoli"],
+        peers: [
+          { quote: "Ate plain rice for 4 days once and described it as 'actually quite good'. I have questions.", from: "Apple" },
+          { quote: "The least complicated person in any kitchen. I mean that as the highest compliment.", from: "Mushroom" },
+          { quote: "Celery once simplified a recipe I was overcomplicating and they were completely right.", from: "Carrot" }
+        ],
+        features: ["🤖 Cook-from-Fridge AI", "⏰ Expiry Alerts", "🧊 Fridge Inventory", "⚡ Quick-Add"]
+      },
+
+      // ─── avatar_13 ─── CHOCOLATE
+      avatar_13: {
+        avatar: "avatar_13",
+        name: "Chocolate",
+        subtitle: "The Discerning Planner",
+        alignment: "Lawful Good · I have extremely strong opinions and they are extremely correct.",
+        strengths: [
+          "Plans every meal with research and intention",
+          "Adventurous — will try anything once, twice if interesting",
+          "Loves sharing food experiences with the right people",
+          "Has an opinion on every restaurant and it's usually the correct one",
+          "Turns a regular Tuesday dinner into a whole occasion",
+          "Genuinely raises the culinary standards of everyone around them"
+        ],
+        weaknesses: [
+          "Doesn't cook much — that's what talented people are for",
+          "Will spend 45 minutes choosing a restaurant",
+          "Taste over health, always, and will not apologise",
+          "Has very strong opinions about food that occasionally surface unprompted",
+          "Once sent a detailed written note about what went wrong with a restaurant dish. Constructively."
+        ],
+        catchphrase: "I've been thinking about this meal for three days and I have thoughts.",
+        hiddenTalent: "Can describe exactly how a dish should taste before it's been made and be completely right.",
+        compatibility: ["Tomato", "Avocado", "Pizza"],
+        peers: [
+          { quote: "Chocolate recommended a restaurant in a different city. Worth every kilometre of the trip.", from: "Tomato" },
+          { quote: "Extremely thorough. Extremely correct. Slightly exhausting. Always worth it.", from: "Apple" },
+          { quote: "Their food opinions are so specific and so right that I've just stopped forming my own.", from: "Pizza" }
+        ],
+        features: ["📅 Meal Planner", "🌍 Recipe Discovery", "🔗 URL Import", "⭐ Curated Favorites"]
+      },
+
+      // ─── avatar_14 ─── ICE CREAM
+      avatar_14: {
+        avatar: "avatar_14",
+        name: "Ice Cream",
+        subtitle: "The Inspired Chaos Agent",
+        alignment: "Chaotic Neutral · Saw it on TikTok. We're making it tonight. That's all.",
+        strengths: [
+          "Always up for trying something completely new",
+          "Kitchen chaos is genuinely comfortable territory",
+          "Eats for joy, exclusively, without apology",
+          "The person who discovers trends before they're trends",
+          "Has saved approximately 400 recipes online and will get to them",
+          "Makes cooking feel exciting and slightly dangerous in a good way"
+        ],
+        weaknesses: [
+          "Cooks rarely outside of TikTok-inspired moments",
+          "No plan — plans are for people with fewer ideas",
+          "Last minute everything, always, with complete confidence",
+          "Has started a dish at 9pm on a Tuesday because the video was compelling",
+          "The recipe they're making tonight was discovered 20 minutes ago"
+        ],
+        catchphrase: "I saw it on TikTok. We're making it tonight. Don't overthink it.",
+        hiddenTalent: "Recreates a dish from a 15-second video to a surprisingly accurate degree on the first try.",
+        compatibility: ["Apple", "Blueberry", "Cheese"],
+        peers: [
+          { quote: "Got a voice note at 9pm: 'I'm making that Turkish eggs thing, come over'. I came over. Life changing.", from: "Apple" },
+          { quote: "Somehow it always works out. I've stopped questioning the physics of it.", from: "Strawberry" },
+          { quote: "The most chaotic, most fun, most accidentally delicious kitchen I've ever been in.", from: "Blueberry" }
+        ],
+        features: ["🔗 URL & TikTok Import", "🧪 AI-Generated Recipes", "⚡ Quick-Add", "🤖 AI Assistant"]
+      },
+
+      // ─── avatar_15 ─── PIZZA
+      avatar_15: {
+        avatar: "avatar_15",
+        name: "Pizza",
+        subtitle: "The Universal Crowd-Pleaser",
+        alignment: "Neutral Good · Everyone's happy. That's the whole point.",
+        strengths: [
+          "Plans ahead so everyone else doesn't have to",
+          "Eats for joy and brings everyone along for it",
+          "Can find a restaurant that the entire group agrees on",
+          "Makes people feel genuinely welcome and fed",
+          "Never makes anyone feel bad about their food preferences",
+          "The person who quietly handles all the logistics so others don't have to"
+        ],
+        weaknesses: [
+          "Doesn't cook much — hospitality doesn't require it",
+          "Plays it safe with cuisine choices to avoid conflict",
+          "Has avoided suggesting their real favourite restaurant because 'not everyone would like it'",
+          "Prioritises group harmony over personal food ambition",
+          "Once spent 30 minutes finding a place with options for 7 different dietary requirements"
+        ],
+        catchphrase: "I know a place. Everyone will like it. Trust me.",
+        hiddenTalent: "Can identify exactly what food situation will make a group of people happy and execute it silently.",
+        compatibility: ["Cheese", "Strawberry", "Tomato"],
+        peers: [
+          { quote: "Picked a restaurant for 9 people with 6 dietary requirements. Everyone loved it. I don't know how.", from: "Tomato" },
+          { quote: "Pizza showed up with food at exactly the right moment. They always show up with food at exactly the right moment.", from: "Strawberry" },
+          { quote: "The most quietly capable food person I know. The group would fall apart without them.", from: "Cheese" }
+        ],
+        features: ["📅 Meal Planner", "🍴 Nearby Restaurants", "⭐ Saved Favorites", "🛒 Grocery Lists"]
+      },
+
+      // ─── avatar_16 ─── FRENCH FRY
+      avatar_16: {
+        avatar: "avatar_16",
+        name: "French Fry",
+        subtitle: "Gloriously, Peacefully Unhinged",
+        alignment: "Chaotic Neutral · No plan. No rules. Somehow thriving. Goodnight.",
+        strengths: [
+          "Zero food stress — genuinely, completely unbothered",
+          "Adaptable to any food situation without complaint",
+          "Infectious energy that makes any meal more fun",
+          "Never overthinks a single food decision",
+          "Will eat anything, anywhere, any time, with enthusiasm",
+          "Has never once caused drama over a restaurant choice"
+        ],
+        weaknesses: [
+          "Cooks rarely — the concept is there in spirit",
+          "No plan has ever existed. None will.",
+          "Taste and health are both theoretical priorities",
+          "Has eaten cold chips for dinner and considered it a solid evening",
+          "Once described their meal prep strategy as 'opening things'"
+        ],
+        catchphrase: "I don't know what I'm doing and it's going absolutely great.",
+        hiddenTalent: "Can have a genuinely good time eating anything, anywhere, in any circumstances. This is rarer than it sounds.",
+        compatibility: ["Apple", "Ice Cream", "Blueberry"],
+        peers: [
+          { quote: "I genuinely don't know how French Fry feeds themselves. They seem completely fine. I've checked.", from: "Avocado" },
+          { quote: "Ate cereal for dinner three nights in a row and described each night as 'actually pretty good'.", from: "Celery" },
+          { quote: "The most unbothered person at any table. It's genuinely something to aspire to.", from: "Blueberry" }
+        ],
+        features: ["🤖 AI Food Assistant", "🍴 Nearby Restaurants", "⚡ Quick-Add", "🤖 Cook-from-Fridge AI"]
+      }
+
+    };
+
+    const SCREENS = [
+      { // 0
+        type: 'story',
+        text: '<p><em>You wake up on a kitchen counter in ForkVille — a city where every resident is a food character and nobody finds this unusual.</em></p>',
+        scene: '<div class="composed-emoji" style="top: 20%; left: 10%; font-size: 5rem;">❓</div><div class="composed-emoji" style="top: 10%; right: 5%; font-size: 2rem;">🎪</div>',
+        btn: "Look around"
+      },
+      { // 1
+        type: 'story',
+        text: '<p><em>A panicked Springles rolls past at full speed. "The ForkVille Food Festival is TODAY! You need a Foodsona to get through the gate or they won\'t let you in!"</em></p>',
+        scene: '<div class="composed-emoji" style="bottom: 10%; left: 30%;">🏃‍♂️</div><div class="composed-emoji" style="top: 20%; right: 20%; font-size: 2rem;">🎪</div>',
+        btn: "Follow the crowd"
+      },
+      { // 2
+        type: 'story',
+        text: '<p><em>You arrive at the festival gates. A rigorous Bokchoy in a high-vis vest points a clipboard at you. "ID check. I need to know your cooking habits."</em></p>',
+        scene: '<div class="composed-emoji" style="bottom: 10%; left: 30%;">🥬</div><div class="composed-emoji" style="bottom: 10%; left: 10%;">📋</div><div class="composed-emoji" style="top: 20%; right: 20%; font-size: 2rem;">🚶‍♂️</div>',
+        btn: "Step forward"
+      },
+      { // 3: Q1 cookFreq
+        type: 'choice',
+        qIdx: 0,
+        text: '<p><strong>"How often are you actually cooking at home?"</strong></p>',
+        scene: '<div class="composed-emoji" style="font-size: 6rem;">🍳</div>',
+        answers: [
+          { text: "Every day. It's my whole thing.", val: 10 },
+          { text: "Most days, 4+ times a week.", val: 7 },
+          { text: "A few times a week, maybe less.", val: 4 },
+          { text: "Rarely. Other people exist for a reason.", val: 1 }
+        ]
+      },
+      { // 4
+        type: 'story',
+        text: '<p><em>The Bokchoy scribbles aggressively. "Fascinating." She stamps \'PENDING\' on your hand. "Go inside. Find the Truffle. Don\'t touch the exhibits."</em></p>',
+        scene: '<div class="composed-emoji" style="bottom: 10%; left: 30%;">🥬</div><div class="composed-emoji" style="top: 10%; right: 10%; font-size: 3rem;">📝</div>',
+        btn: "Walk through the gates"
+      },
+      { // 5: Q2 planStyle
+        type: 'choice',
+        qIdx: 1,
+        text: '<p><strong>Suddenly, a Heirloomtomato wearing a headset intercepts you. "Quick! How do you usually decide what to eat?"</strong></p>',
+        scene: '<div class="composed-emoji" style="font-size: 6rem;">🍅</div>',
+        answers: [
+          { text: "I plan meals in advance. I have a system.", val: 10 },
+          { text: "I plan a day ahead.", val: 7 },
+          { text: "I decide same day, vibe-based.", val: 4 },
+          { text: "When I\'m already hungry. It\'s fine.", val: 1 }
+        ]
+      },
+      { // 6
+        type: 'story',
+        text: '<p><em>"Good enough!" The tomato shoves an apron into your hands. "The Cook-Off is short a judge. You\'re up. Try not to embarrass us."</em></p>',
+        scene: '<div class="composed-emoji" style="bottom: 10%; left: 30%;">🍅</div><div class="composed-emoji" style="top: 10%; right: 20%; font-size: 5rem;">🎽</div>',
+        btn: "Wait, what?"
+      },
+      { // 7: Q3 openToNew
+        type: 'choice',
+        qIdx: 2,
+        text: '<p><strong>They place a glowing, unidentifiable dish in front of you. "What\'s your approach to new food?"</strong></p>',
+        scene: '<div class="composed-emoji" style="font-size: 6rem;">🧪</div>',
+        answers: [
+          { text: "The stranger the better. I'm in.", val: 10 },
+          { text: "Open to it, with a quick Google first.", val: 7 },
+          { text: "I prefer familiar meals. This is stressful.", val: 4 },
+          { text: "I have 5 favorite dishes. This is an attack.", val: 1 }
+        ]
+      },
+      { // 8
+        type: 'story',
+        text: '<p><em>You survive the judging panel. A Tortlerry (half turtle, half celery) nods at you respectfully. "Not bad for a rookie."</em></p>',
+        scene: '<div class="composed-emoji" style="bottom: 10%; left: 30%; font-size: 5rem;">🐢</div><div class="composed-emoji" style="bottom: 10%; left: 50%; font-size: 3rem;">🥬</div>',
+        btn: "Wipe sweat from brow"
+      },
+      { // 9: Q4 tasteFirst
+        type: 'choice',
+        qIdx: 3,
+        text: '<p><strong>As you leave the stage, a Deepdishpizzadog block your path. "Settle an argument. How important is it that food tastes amazing, even if it\'s unhealthy?"</strong></p>',
+        scene: '<div class="composed-emoji" style="font-size: 6rem;">🍕</div>',
+        answers: [
+          { text: "Life is too short for sad meals.", val: 10 },
+          { text: "Very. Food should bring joy.", val: 7 },
+          { text: "I try to balance taste and health.", val: 4 },
+          { text: "Food is fuel. Enjoyment is a bonus.", val: 1 }
+        ]
+      },
+      { // 10
+        type: 'story',
+        text: '<p><em>The Pizzadog barks in agreement (or disagreement, it\'s hard to tell). You push through the crowd toward the center of the festival.</em></p>',
+        scene: '<div class="composed-emoji" style="bottom: 10%; left: 40%; font-size: 6rem;">🎪</div>',
+        btn: "Keep moving"
+      },
+      { // 11
+        type: 'story',
+        text: '<p><em>You spot the VIP tent. Inside, the legendary Truffle sits on a velvet cushion. They open one eye. "I\'ve been expecting you."</em></p>',
+        scene: '<div class="composed-emoji" style="bottom: 20%; left: 40%; font-size: 5rem;">🍄</div><div class="composed-emoji" style="bottom: 10%; left: 40%; font-size: 6rem;">👑</div>',
+        btn: "Approach the Truffle"
+      },
+      { // 12
+        type: 'story',
+        text: '<p><em>The Truffle floats slightly off the cushion. "Two final questions before your true Foodsona can be revealed."</em></p>',
+        scene: '<div class="composed-emoji" style="bottom: 30%; left: 40%; font-size: 5rem;">🍄</div>',
+        btn: "I'm ready"
+      },
+      { // 13: Q5 socialFood
+        type: 'choice',
+        qIdx: 4,
+        text: '<p><strong>"Is food a social event for you, or a solo pursuit?"</strong></p>',
+        scene: '<div class="composed-emoji" style="font-size: 6rem;">🥂</div>',
+        answers: [
+          { text: "I always cook for/eat with others.", val: 10 },
+          { text: "Social mostly, but I like a quiet meal.", val: 7 },
+          { text: "Usually solo, occasionally social.", val: 4 },
+          { text: "Solo. Eating is a private activity.", val: 1 }
+        ]
+      },
+      { // 14
+        type: 'story',
+        text: '<p><em>The Truffle hums. The sound vibrates through your spine. "Interesting. Very interesting."</em></p>',
+        scene: '<div class="composed-emoji" style="bottom: 30%; left: 40%; font-size: 5rem;">🍄</div><div class="composed-emoji" style="bottom: 40%; right: 30%; font-size: 3rem;">✨</div>',
+        btn: "Next question"
+      },
+      { // 15
+        type: 'story',
+        text: '<p><em>"The great kitchen in the sky demands truth..." The Truffle dramatically raises a tiny, mushroomy hand.</em></p>',
+        scene: '<div class="composed-emoji" style="bottom: 30%; left: 40%; font-size: 5rem;">🍄</div><div class="composed-emoji" style="top: 20%; left: 40%; font-size: 4rem;">⚡</div>',
+        btn: "Brace yourself"
+      },
+      { // 16: Q6 kitchenChaos
+        type: 'choice',
+        qIdx: 5,
+        text: '<p><strong>"When you cook, is your kitchen organized or absolute chaos?"</strong></p>',
+        scene: '<div class="composed-emoji" style="font-size: 6rem;">🌪️</div>',
+        answers: [
+          { text: "Immaculate. Clean as I go. Perfect.", val: 10 },
+          { text: "Tidy enough. Reasonable mess.", val: 7 },
+          { text: "It's a disaster but the food is good.", val: 4 },
+          { text: "Total chaos.", val: 1 }
+        ]
+      },
+      { // 17
+        type: 'story',
+        text: '<p><em>The Truffle descends back to the cushion. "It is decided." They pull out an envelope sealed with a golden fork emblem.</em></p>',
+        scene: '<div class="composed-emoji" style="bottom: 20%; left: 40%; font-size: 5rem;">🍄</div><div class="composed-emoji" style="top: 30%; right: 30%; font-size: 6rem;">✉️</div>',
+        btn: "Take the envelope"
+      },
+      { // 18
+        type: 'result'
+      }
+    ];
+
+    // --- Core Architecture Variables ---
+    let currentScreenIndex = 0;
+    let userScores = [null, null, null, null, null, null]; // [Q1, Q2, Q3, Q4, Q5, Q6]
+
+    // --- Execution Logic ---
+
+    function init() {
+      // Create fixed DOM structure inside AppRoot
+      const root = document.getElementById('app-root');
+
+      SCREENS.forEach((screenData, idx) => {
+        const wrap = document.createElement('div');
+        wrap.id = `screen-${idx}`;
+        wrap.className = 'screen';
+
+        if (screenData.type === 'story') {
+          wrap.innerHTML = buildStoryScreen(screenData, idx);
+        } else if (screenData.type === 'choice') {
+          wrap.innerHTML = buildChoiceScreen(screenData, idx);
+        } else if (screenData.type === 'result') {
+          // Empty container, hydrated dynamically at the end
+          wrap.innerHTML = `<div id="result-wrapper"></div>`;
+        }
+
+        root.appendChild(wrap);
+      });
+
+      showScreen(0);
+    }
+
+    function buildStoryScreen(data, idx) {
+      return `
+        <div class="narrative-text">${data.text}</div>
+        <div class="scene-box">${data.scene}</div>
+        <div class="action-area">
+          <button class="fk-btn-stack fk-btn-continue" onclick="advance(${idx})">${data.btn}</button>
+        </div>
+      `;
+    }
+
+    function buildChoiceScreen(data, idx) {
+      let btnsHTML = '';
+      data.answers.forEach((ans, i) => {
+        btnsHTML += `<button class="fk-btn-stack fk-btn-choice id-btn-${idx}" style="animation-delay: ${0.05 * i}s;" onclick="selectAnswer(${idx}, ${data.qIdx}, ${ans.val}, this)">${ans.text}</button>`;
+      });
+
+      return `
+        <div class="narrative-text" style="display:none;"></div>
+        <div class="scene-box">${data.scene}</div>
+        <div class="question-title">${data.text}</div>
+        <div class="action-area">${btnsHTML}</div>
+      `;
+    }
+
+    function showScreen(idx) {
+      // Hide all 
+      const allScreens = document.querySelectorAll('.screen');
+      allScreens.forEach(s => s.classList.remove('active'));
+
+      const target = document.getElementById(`screen-${idx}`);
+      if (!target) return;
+
+      // Force reflow
+      void target.offsetWidth;
+      target.classList.add('active');
+
+      currentScreenIndex = idx;
+
+      if (SCREENS[idx].type === 'result') {
+        const winnerId = calculateWinner();
+        renderResultCard(winnerId);
+        document.getElementById('progress-container').style.display = 'none';
+      } else {
+        updateProgress();
+      }
+    }
+
+    function advance(fromIdx) {
+      if (fromIdx < SCREENS.length - 1) {
+        showScreen(fromIdx + 1);
+      }
+    }
+
+    function selectAnswer(screenIdx, qIdx, value, btnEl) {
+      // Disable others visually
+      const parent = btnEl.parentElement;
+      const allBtns = parent.querySelectorAll(`.id-btn-${screenIdx}`);
+      allBtns.forEach(b => {
+        b.style.pointerEvents = 'none';
+        b.style.opacity = '0.7';
+      });
+      btnEl.classList.add('selected');
+      btnEl.style.opacity = '1';
+
+      // Save Score
+      userScores[qIdx] = value;
+
+      setTimeout(() => advance(screenIdx), 380);
+    }
+
+    function calculateWinner() {
+      // Sanity fallback in case they slipped through without 6 answers
+      const safeScores = userScores.map(v => v === null ? 4 : v);
+
+      let bestMatch = PERSONA_SCORES[0].id;
+      let lowestDiff = 9999;
+
+      for (const p of PERSONA_SCORES) {
+        let diffSum = 0;
+        for (let i = 0; i < 6; i++) {
+          diffSum += Math.abs(safeScores[i] - p.scores[i]);
+        }
+        if (diffSum < lowestDiff) {
+          lowestDiff = diffSum;
+          bestMatch = p.id;
+        }
+      }
+
+      return bestMatch;
+    }
+
+    function updateProgress() {
+      // Count how many choices have passed or are active
+      let choicesEncountered = 0;
+      for (let i = 0; i <= currentScreenIndex; i++) {
+        if (SCREENS[i].type === 'choice') {
+          choicesEncountered++;
+        }
+      }
+
+      const pc = (choicesEncountered / 6) * 100;
+      document.getElementById('progress-bar').style.width = `${Math.min(pc, 100)}%`;
+    }
+
+    function renderResultCard(avatarId) {
+      const data = RESULTS[avatarId] || RESULTS['avatar_01']; // fallback
+
+      let strengthsHTML = '';
+      data.strengths.forEach(s => strengthsHTML += `<li class="stat-item">${s}</li>`);
+
+      let weaknessesHTML = '';
+      data.weaknesses.forEach(w => weaknessesHTML += `<li class="stat-item">${w}</li>`);
+
+      let featuresHTML = '';
+      data.features.forEach(f => featuresHTML += `<span class="fk-chip" style="margin-right: 4px; margin-bottom: 4px;">${f}</span>`);
+
+      let compatHTML = '';
+      if (data.compatibility) {
+        data.compatibility.forEach(c => compatHTML += `<span class="fk-chip" style="background:var(--fk-primary); color:white; margin-right:4px;">${c}</span>`);
+      }
+
+      let reviewsHTML = '';
+      if (data.peers) {
+        data.peers.forEach(r => reviewsHTML += `<div class="review-item">"${r.quote}" — <span class="review-author">${r.from}</span></div>`);
+      }
+
+      // Update our fallback AppStore URL property dynamically for the CTA
+      const finalUrl = `forkcast://onboarding?foodsona=${avatarId}`;
+
+      const cardHTML = `
+        <div id="id-card">
+          <div class="card-header">
+            <div class="card-header-caption caption1Condensed" style="margin-bottom: 0.5rem; text-transform: uppercase;">Drumroll… your Forkcast ID is ready!</div>
+            <div class="caption1Condensed" style="letter-spacing:0.15em; color: var(--fk-primary);">FORKCAST ID</div>
+            <div class="card-title" style="margin-bottom: 2px;">${data.name}</div>
+            <div class="card-subtitle">${data.subtitle}</div>
+          </div>
+          
+          <div class="card-row-split" style="padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--fk-grey5);">
+            <div class="card-avatar-cell" style="flex: 0 0 110px;">
+              <img src="assets/${data.avatar}.png" alt="${data.name}" class="card-avatar-img" onerror="this.src=''; this.alt='❓'" />
+            </div>
+            <div class="card-stats-cell" style="flex: 1; padding-left: 1rem;">
+              <ul class="stat-list">
+                <li class="stat-title">⚡ Strengths:</li>
+                ${strengthsHTML}
+              </ul>
+              <ul class="stat-list" style="margin-top: 1rem;">
+                <li class="stat-title">⚠️ Weaknesses:</li>
+                ${weaknessesHTML}
+              </ul>
+            </div>
+          </div>
+
+          <div class="card-catchphrase">
+            "${data.catchphrase}"
+          </div>
+
+          <div class="card-section">
+            <div class="stat-item" style="color:var(--fk-label); margin-bottom: 8px;">
+              <strong>🧭 Alignment:</strong> ${data.alignment}
+            </div>
+            <div class="stat-item" style="color:var(--fk-label);">
+              <strong>🎯 Hidden Talent:</strong> ${data.hiddenTalent}
+            </div>
+          </div>
+
+          <div class="card-section">
+            <div class="card-section-title">💚 Most compatible with:</div>
+            <div class="features-wrapper">
+              ${compatHTML}
+            </div>
+          </div>
+
+          <div class="card-section">
+            <div class="card-section-title" style="color:var(--fk-label-tertiary);">🍽️ Forkcast built this for you:</div>
+            <div class="features-wrapper">
+              ${featuresHTML}
+            </div>
+          </div>
+
+          <div class="card-reviews">
+            <div class="caption1Condensed" style="margin-bottom:12px; color:var(--fk-primary);">⭐ Peer Reviews:</div>
+            ${reviewsHTML}
+          </div>
+        </div>
+
+        <div class="result-actions">
+          <button class="fk-btn-appstore" onclick="openAppStore('${finalUrl}')">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM11.4 16.7L8.9 14.2C8.5 13.8 8.5 13.2 8.9 12.8C9.3 12.4 9.9 12.4 10.3 12.8L11.4 13.9L14.7 9.5C15.1 9 15.7 8.9 16.2 9.2C16.7 9.6 16.8 10.2 16.5 10.7L12.5 16.2C12.3 16.5 12.1 16.6 11.8 16.7C11.6 16.7 11.5 16.7 11.4 16.7Z" fill="white"/>
+            </svg>
+            Download on the App Store
+          </button>
+          <button class="fk-btn-tertiary" onclick="shareQuiz(this)" style="background: var(--fk-grey6); margin-top: -4px;">
+            🔗 Share Quiz
+          </button>
+          <button class="fk-btn-tertiary" onclick="retakeQuiz()">↺ Try again</button>
+        </div>
+      `;
+
+      document.getElementById('result-wrapper').innerHTML = cardHTML;
+    }
+
+    function retakeQuiz() {
+      userScores = [null, null, null, null, null, null];
+      document.getElementById('progress-container').style.display = 'block';
+      showScreen(0);
+    }
+
+    function openAppStore(schemeUrl) {
+      const appStoreUrl = "https://apps.apple.com/app/idYOUR_APP_ID"; // Replace with real ID
+
+      const start = Date.now();
+      window.location.href = schemeUrl;
+      setTimeout(() => {
+        if (Date.now() - start < 1500) {
+          window.location.href = appStoreUrl;
+        }
+      }, 1000);
+    }
+
+    function shareQuiz(btnElement) {
+      const url = window.location.href.split('?')[0]; // get clean URL
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(() => {
+          const originalText = btnElement.innerHTML;
+          btnElement.innerHTML = "✅ Copied!";
+          setTimeout(() => {
+            btnElement.innerHTML = originalText;
+          }, 2000);
+        }).catch(err => {
+          console.error('Failed to copy: ', err);
+          fallbackShare(url);
+        });
+      } else {
+        fallbackShare(url);
+      }
+    }
+
+    function fallbackShare(url) {
+      const textArea = document.createElement("textarea");
+      textArea.value = url;
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      try {
+        document.execCommand('copy');
+        alert("Link copied to clipboard!");
+      } catch (err) {
+        console.error('Fallback copy failed', err);
+      }
+      document.body.removeChild(textArea);
+    }
+
+    // Init App
+    window.addEventListener('DOMContentLoaded', init);
+
+  </script>
+</body>
+
+</html>
