@@ -359,6 +359,18 @@
       letter-spacing: -2px;
     }
 
+    /* Final Desktop Side-by-Side Wrapper */
+    .final-result-layout {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 2rem;
+      max-width: 1300px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+    }
+
     /* CTA Banner Layout */
     .cta-banner {
       display: flex;
@@ -368,8 +380,9 @@
       background: var(--fk-label);
       border-radius: 24px;
       padding: 2.5rem 2rem 2.5rem 2.5rem;
-      max-width: 860px;
-      margin: 2rem auto;
+      flex: 1;
+      min-width: 600px;
+      margin: 0;
       overflow: hidden;
       position: relative;
     }
@@ -417,21 +430,24 @@
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      background: var(--fk-primary);
+      background: #FFFFFF;
       color: var(--fk-label);
-      border: none;
-      border-radius: 100px;
+      border: 1px solid var(--fk-grey6);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       padding: 14px 24px;
       font-family: 'Bricolage Grotesque', sans-serif;
       font-size: 15px;
-      font-weight: 700;
+      font-weight: 600;
+      font-variation-settings: "wdth" 75;
       cursor: pointer;
       width: fit-content;
       margin-top: 0.5rem;
     }
 
     .cta-button:hover {
-      background: var(--fk-primary-dark);
+      background: #FAFAFA;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
     }
 
     .cta-share {
@@ -455,28 +471,42 @@
     .cta-phone {
       width: 100%;
       border-radius: 28px;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
       display: block;
+      box-shadow: none;
+      background: transparent;
     }
 
     .mockup-avatar {
       position: absolute;
-      top: 50%;
-      /* TBD - Will be adjusted */
-      left: 50%;
+      top: 18%;
+      left: 38%;
       transform: translate(-50%, -50%);
-      width: 110px;
-      height: 110px;
+      width: 40px;
+      height: 40px;
       object-fit: contain;
       z-index: 2;
     }
 
     /* Mobile */
+    @media (max-width: 1000px) {
+      .final-result-layout {
+        flex-direction: column;
+        align-items: center;
+        padding: 0;
+      }
+
+      .cta-banner {
+        margin-top: 2rem;
+      }
+    }
+
     @media (max-width: 640px) {
       .cta-banner {
         flex-direction: column;
         padding: 2rem 1.5rem;
         border-radius: 20px;
+        margin-top: 1rem;
+        min-width: auto;
       }
 
       .cta-right {
@@ -1508,98 +1538,97 @@
       const timeStr = today.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
       const cardHTML = `
-        <div class="receipt-container" style="max-width: 400px; margin: 0 auto;">
-          <div id="id-card">
-            <div class="receipt-header">
-              <div class="receipt-title">FORKCAST MARKET</div>
-              <div class="receipt-subtitle">Thank you for shopping!</div>
-              <div class="receipt-meta">${dateStr} ${timeStr} • REG 04 • CSH ${data.name.substring(0, 3).toUpperCase()}-1</div>
-            </div>
-            
-            <div class="receipt-avatar-wrapper">
-              <img src="assets/${data.avatar}.png" alt="${data.name}" class="receipt-avatar" onerror="this.src=''; this.alt='❓'" />
-              <div style="font-weight: bold; font-size: 20px; text-transform: uppercase; margin-top: 8px;">${data.name}</div>
-              <div style="font-size: 14px;">${data.subtitle}</div>
-            </div>
-
-            <div class="receipt-section">
-              <div class="receipt-section-title">STRENGTHS</div>
-              ${strengthsHTML}
-            </div>
-
-            <div class="receipt-section">
-              <div class="receipt-section-title">WEAKNESSES</div>
-              ${weaknessesHTML}
-            </div>
-
-            <div class="receipt-section">
-              <div class="receipt-section-title">DETAILS</div>
-              <div class="receipt-item">
-                <span class="receipt-item-name">Alignment</span>
-                <span class="receipt-item-code" style="text-align: right; font-size: 11px;">${data.alignment}</span>
+        <div class="final-result-layout">
+          <div class="receipt-container" style="max-width: 400px; width: 100%; flex-shrink: 0;">
+            <div id="id-card">
+              <div class="receipt-header">
+                <div class="receipt-title">FORKCAST MARKET</div>
+                <div class="receipt-subtitle">Thank you for shopping!</div>
+                <div class="receipt-meta">${dateStr} ${timeStr} • REG 04 • CSH ${data.name.substring(0, 3).toUpperCase()}-1</div>
               </div>
-              <div class="receipt-item">
-                <span class="receipt-item-name">Hidden Talent</span>
-                <span class="receipt-item-code" style="text-align: right; font-size: 11px;">${data.hiddenTalent}</span>
+              
+              <div class="receipt-avatar-wrapper">
+                <img src="assets/${data.avatar}.png" alt="${data.name}" class="receipt-avatar" onerror="this.src=''; this.alt='❓'" />
+                <div style="font-weight: bold; font-size: 20px; text-transform: uppercase; margin-top: 8px;">${data.name}</div>
+                <div style="font-size: 14px;">${data.subtitle}</div>
               </div>
-            </div>
 
-            <div class="receipt-section">
-              <div class="receipt-section-title">COMPATIBLE WITH</div>
-              <div>${compatHTML}</div>
-            </div>
+              <div class="receipt-section">
+                <div class="receipt-section-title">STRENGTHS</div>
+                ${strengthsHTML}
+              </div>
 
-            <div class="receipt-section">
-              <div class="receipt-section-title">BUILT FOR YOU</div>
-              <div>${oldFeaturesHTML}</div>
-            </div>
+              <div class="receipt-section">
+                <div class="receipt-section-title">WEAKNESSES</div>
+                ${weaknessesHTML}
+              </div>
 
-            <div class="receipt-section">
-              <div class="receipt-section-title">PEER REVIEWS</div>
-              <div>${reviewsHTML}</div>
-            </div>
-            
-            <div class="receipt-catchphrase">
-              "${data.catchphrase}"
-            </div>
+              <div class="receipt-section">
+                <div class="receipt-section-title">DETAILS</div>
+                <div class="receipt-item">
+                  <span class="receipt-item-name">Alignment</span>
+                  <span class="receipt-item-code" style="text-align: right; font-size: 11px;">${data.alignment}</span>
+                </div>
+                <div class="receipt-item">
+                  <span class="receipt-item-name">Hidden Talent</span>
+                  <span class="receipt-item-code" style="text-align: right; font-size: 11px;">${data.hiddenTalent}</span>
+                </div>
+              </div>
 
-            <div class="receipt-barcode">
-              *${data.name.toUpperCase()}*
-            </div>
-          </div>
-        </div>
+              <div class="receipt-section">
+                <div class="receipt-section-title">COMPATIBLE WITH</div>
+                <div>${compatHTML}</div>
+              </div>
 
-        <div class="cta-banner">
-          <div class="cta-left">
-            <div class="cta-badge">${getEmojiForAvatar(data.avatar)} ${data.name}</div>
+              <div class="receipt-section">
+                <div class="receipt-section-title">BUILT FOR YOU</div>
+                <div>${oldFeaturesHTML}</div>
+              </div>
 
-            <div class="cta-headline">
-              Built for the<br>way you eat.
-            </div>
+              <div class="receipt-section">
+                <div class="receipt-section-title">PEER REVIEWS</div>
+                <div>${reviewsHTML}</div>
+              </div>
+              
+              <div class="receipt-catchphrase">
+                "${data.catchphrase}"
+              </div>
 
-            <div class="cta-subline">
-              ${data.bridgeLine ? data.bridgeLine.replace(/\n/g, '<br/>') : ''}
-            </div>
-
-            <button class="cta-button" onclick="openAppStore('forkcast://onboarding?foodsona=${avatarId}')">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle; margin-right: 6px; margin-top: -2px;">
-                <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM11.4 16.7L8.9 14.2C8.5 13.8 8.5 13.2 8.9 12.8C9.3 12.4 9.9 12.4 10.3 12.8L11.4 13.9L14.7 9.5C15.1 9 15.7 8.9 16.2 9.2C16.7 9.6 16.8 10.2 16.5 10.7L12.5 16.2C12.3 16.5 12.1 16.6 11.8 16.7C11.6 16.7 11.5 16.7 11.4 16.7Z" fill="var(--fk-background)"/>
-              </svg>
-              ${data.ctaLabel || `Get Forkcast — made for ${data.name}s`}
-            </button>
-
-            <div class="cta-share" onclick="shareQuiz(this)">
-              🔗 Share your Foodsona &rarr;
-            </div>
-            
-            <div class="cta-share" onclick="retakeQuiz()" style="margin-top: 0.75rem; color: rgba(255,255,255,0.4);">
-              ↺ Try again
+              <div class="receipt-barcode">
+                *${data.name.toUpperCase()}*
+              </div>
             </div>
           </div>
 
-          <div class="cta-right">
-            <img class="cta-phone" src="assets/home-mockup.png" alt="Forkcast app" />
-            <img class="mockup-avatar" src="assets/${data.avatar}.png" alt="${data.name} avatar" />
+          <div class="cta-banner">
+            <div class="cta-left">
+              <div class="cta-badge">${getEmojiForAvatar(data.avatar)} ${data.name}</div>
+
+              <div class="cta-headline">
+                Built for the<br>way you eat.
+              </div>
+
+              <div class="cta-subline">
+                ${data.bridgeLine ? data.bridgeLine.replace(/\n/g, '<br/>') : ''}
+              </div>
+
+              <button class="cta-button" onclick="openAppStore('forkcast://onboarding?foodsona=${avatarId}')">
+                ${data.ctaLabel || `Get Forkcast — made for ${data.name}s`}
+              </button>
+
+              <div class="cta-share" onclick="shareQuiz(this)">
+                🔗 Share your Foodsona &rarr;
+              </div>
+              
+              <div class="cta-share" onclick="retakeQuiz()" style="margin-top: 0.75rem; color: rgba(255,255,255,0.4);">
+                ↺ Try again
+              </div>
+            </div>
+
+            <div class="cta-right">
+              <img class="cta-phone" src="assets/home-mockup.png" alt="Forkcast app" />
+              <img class="mockup-avatar" src="assets/${data.avatar}.png" alt="${data.name} avatar" />
+            </div>
           </div>
         </div>
       `;
