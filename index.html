@@ -119,7 +119,7 @@
     .scene-box {
       width: 100%;
       aspect-ratio: 4/3;
-      background: var(--fk-grey6);
+      background: var(--fk-grey5);
       border-radius: 16px;
       overflow: hidden;
       position: relative;
@@ -128,6 +128,14 @@
       align-items: center;
       justify-content: center;
       border: 1px solid var(--fk-grey5);
+      box-shadow: inset 0 0 40px rgba(0,0,0,0.05);
+    }
+
+    .scene-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
 
     .composed-emoji {
@@ -1155,159 +1163,165 @@
 
     };
 
-    const SCREENS = [
-      { // 0
+        const SCREENS = [
+      { // 0 Title
         type: 'story',
         text: '<h2 style="font-size: 32px; font-weight: 600; line-height: 1.2; margin: 0;">What Foodsona are you?</h2>',
         scene: '<div class="composed-emoji" style="font-size: 7rem;">🥑</div>',
         btn: "Start",
-        debugBtn: true // flag for injecting debug button
+        debugBtn: true
       },
-      { // 1
+      { // SCREEN 1
         type: 'story',
-        text: '<p><em>You wake up on a kitchen counter in ForkVille — a city where every resident is a food character and nobody finds this unusual.</em></p>',
-        scene: '<div class="composed-emoji" style="top: 20%; left: 10%; font-size: 5rem;">❓</div><div class="composed-emoji" style="top: 10%; right: 5%; font-size: 2rem;">🎪</div>',
-        btn: "Look around"
+        text: '<p>You wake up in ForkVille. Stubby little arms. Vaguely delicious smell. No idea what you are.</p>',
+        scene: '<img src="assets/story/Story_1.png" class="scene-img" alt="ForkVille morning" />',
+        btns: ["🌅 Look around slowly, take it all in.", "🏃 Start running. Figure it out later."]
       },
-      { // 1
+      { // SCREEN 2
         type: 'story',
-        text: '<p><em>A panicked Springles rolls past at full speed. "The ForkVille Food Festival is TODAY! You need a Foodsona to get through the gate or they won\'t let you in!"</em></p>',
-        scene: '<div class="composed-emoji" style="bottom: 10%; left: 30%;">🏃‍♂️</div><div class="composed-emoji" style="top: 20%; right: 20%; font-size: 2rem;">🎪</div>',
-        btn: "Follow the crowd"
+        text: '<p>A Springles rolls past at full speed. "Food Festival TODAY. No Foodsona, no entry. Figure it out!"</p>',
+        scene: '<img src="assets/story/Story_2.png" class="scene-img" alt="Springles at the gate" />',
+        btns: ["😤 \"How hard can getting a Foodsona be.\"", "🤔 \"What is a Foodsona.\""]
       },
-      { // 2
-        type: 'story',
-        text: '<p><em>You arrive at the festival gates. A rigorous Bokchoy in a high-vis vest points a clipboard at you. "ID check. I need to know your cooking habits."</em></p>',
-        scene: '<div class="composed-emoji" style="bottom: 10%; left: 30%;">🥬</div><div class="composed-emoji" style="bottom: 10%; left: 10%;">📋</div><div class="composed-emoji" style="top: 20%; right: 20%; font-size: 2rem;">🚶‍♂️</div>',
-        btn: "Step forward"
-      },
-      { // 3: Q1 cookFreq
+      { // SCREEN 3 - Q1
         type: 'choice',
         qIdx: 0,
-        text: '<p><strong>"How often are you actually cooking at home?"</strong></p>',
-        scene: '<div class="composed-emoji" style="font-size: 6rem;">🍳</div>',
+        text: '<p><strong>A Bokchoy in a high-vis vest blocks the gate. "No Foodsona, no entry. First question:"<br/><br/>How often do you cook at home?</strong></p>',
+        scene: '<img src="assets/story/Story_3.png" class="scene-img" alt="Bokchoy guard" />',
         answers: [
-          { text: "Every day. It's my whole thing.", val: 10 },
-          { text: "Most days, 4+ times a week.", val: 7 },
-          { text: "A few times a week, maybe less.", val: 4 },
-          { text: "Rarely. Other people exist for a reason.", val: 1 }
+          { text: "🍳 Every day. It's my whole thing.", val: 10 },
+          { text: "🥘 Most days — 4+ times a week.", val: 7 },
+          { text: "🍜 A few times a week, maybe less.", val: 4 },
+          { text: "🥡 Rarely. Other people exist for a reason.", val: 1 }
         ]
       },
-      { // 4
+      { // SCREEN 4
         type: 'story',
-        text: '<p><em>The Bokchoy scribbles aggressively. "Fascinating." She stamps \'PENDING\' on your hand. "Go inside. Find the Truffle. Don\'t touch the exhibits."</em></p>',
-        scene: '<div class="composed-emoji" style="bottom: 10%; left: 30%;">🥬</div><div class="composed-emoji" style="top: 10%; right: 10%; font-size: 3rem;">📝</div>',
-        btn: "Walk through the gates"
+        text: '<p>She stamps "MYSTERY" on your badge and waves you through. Inside: total chaos. An Enokimushroom is balanced on a stack of cookbooks.</p>',
+        scene: '<img src="assets/story/Story_4.png" class="scene-img" alt="Enokimushroom on books" />',
+        btns: ["👀 Head straight to the food stalls.", "🗺️ Look for a map. There has to be a map."]
       },
-      { // 5: Q2 planStyle
+      { // SCREEN 5 - Q2
         type: 'choice',
         qIdx: 1,
-        text: '<p><strong>Suddenly, a Heirloomtomato wearing a headset intercepts you. "Quick! How do you usually decide what to eat?"</strong></p>',
-        scene: '<div class="composed-emoji" style="font-size: 6rem;">🍅</div>',
+        text: '<p><strong>A Heirloomtomato sprints over. "Mystery Ingredient! Cook-Off team needs a fourth. Quick question first:"<br/><br/>How do you decide what to eat?</strong></p>',
+        scene: '<img src="assets/story/Story_5.png" class="scene-img" alt="Heirloomtomato sprinting" />',
         answers: [
-          { text: "I plan meals in advance. I have a system.", val: 10 },
-          { text: "I plan a day ahead.", val: 7 },
-          { text: "I decide same day, vibe-based.", val: 4 },
-          { text: "When I\'m already hungry. It\'s fine.", val: 1 }
+          { text: "📋 I plan meals in advance. I have a system.", val: 10 },
+          { text: "🌅 I plan a day ahead — give me some notice.", val: 7 },
+          { text: "☀️ I decide same day, vibe-based.", val: 4 },
+          { text: "🤷 When I'm already hungry. It's fine.", val: 1 }
         ]
       },
-      { // 6
+      { // SCREEN 6
         type: 'story',
-        text: '<p><em>"Good enough!" The tomato shoves an apron into your hands. "The Cook-Off is short a judge. You\'re up. Try not to embarrass us."</em></p>',
-        scene: '<div class="composed-emoji" style="bottom: 10%; left: 30%;">🍅</div><div class="composed-emoji" style="top: 10%; right: 20%; font-size: 5rem;">🎽</div>',
-        btn: "Wait, what?"
+        text: '<p>"Perfect. You're exactly what we need." You don't know what that means. She's already pulling you toward the arena.</p>',
+        scene: '<img src="assets/story/Story_6.png" class="scene-img" alt="Arena gates" />',
+        btns: ["🏃 Try to keep up.", "😌 Let yourself be pulled. Surrender to it."]
       },
-      { // 7: Q3 openToNew
+      { // SCREEN 7 - Q3
         type: 'choice',
         qIdx: 2,
-        text: '<p><strong>They place a glowing, unidentifiable dish in front of you. "What\'s your approach to new food?"</strong></p>',
-        scene: '<div class="composed-emoji" style="font-size: 6rem;">🧪</div>',
+        text: '<p><strong>Cook-Off theme drops: "A dish you've NEVER made before." Avotoast crumples their prep sheet. Your honest reaction?<br/><br/>Your approach to new recipes and cuisines?</strong></p>',
+        scene: '<img src="assets/story/Story_7.png" class="scene-img" alt="Cook-off kitchen" />',
         answers: [
-          { text: "The stranger the better. I'm in.", val: 10 },
-          { text: "Open to it, with a quick Google first.", val: 7 },
-          { text: "I prefer familiar meals. This is stressful.", val: 4 },
-          { text: "I have 5 favorite dishes. This is an attack.", val: 1 }
+          { text: "🌍 The stranger the better. I'm fully in.", val: 10 },
+          { text: "🌱 Open to it with a quick Google first.", val: 7 },
+          { text: "🏠 I prefer familiar meals. This is stressful.", val: 4 },
+          { text: "⭐ I have 5 dishes I rotate. This is an attack.", val: 1 }
         ]
       },
-      { // 8
+      { // SCREEN 8
         type: 'story',
-        text: '<p><em>You survive the judging panel. A Tortlerry (half turtle, half celery) nods at you respectfully. "Not bad for a rookie."</em></p>',
-        scene: '<div class="composed-emoji" style="bottom: 10%; left: 30%; font-size: 5rem;">🐢</div><div class="composed-emoji" style="bottom: 10%; left: 50%; font-size: 3rem;">🥬</div>',
-        btn: "Wipe sweat from brow"
+        text: '<p>A Tortlerry knocks over the entire spice rack. The Springles team is on fire — on purpose apparently. 3 minutes left.</p>',
+        scene: '<img src="assets/story/Story_8.png" class="scene-img" alt="Kitchen chaos" />',
+        btns: ["🔥 Power through. Plate it now.", "🤝 Ask a teammate for help."]
       },
-      { // 9: Q4 tasteFirst
+      { // SCREEN 9 - Q4
         type: 'choice',
         qIdx: 3,
-        text: '<p><strong>As you leave the stage, a Deepdishpizzadog block your path. "Settle an argument. How important is it that food tastes amazing, even if it\'s unhealthy?"</strong></p>',
-        scene: '<div class="composed-emoji" style="font-size: 6rem;">🍕</div>',
+        text: '<p><strong>2 seconds to spare. The judges file in. A Truffle, a Century Egg, an Apple Juice already crying. The Truffle looks at your dish, then at you:<br/><br/>How important is it that food tastes incredible, even if it's unhealthy?</strong></p>',
+        scene: '<img src="assets/story/Story_9.png" class="scene-img" alt="Food judges" />',
         answers: [
-          { text: "Life is too short for sad meals.", val: 10 },
-          { text: "Very. Food should bring joy.", val: 7 },
-          { text: "I try to balance taste and health.", val: 4 },
-          { text: "Food is fuel. Enjoyment is a bonus.", val: 1 }
+          { text: "😋 Life is too short for sad meals.", val: 10 },
+          { text: "❤️ Very — food should always bring joy.", val: 7 },
+          { text: "⚖️ I try to find the balance.", val: 4 },
+          { text: "🥦 Food is fuel. Enjoyment is secondary.", val: 1 }
         ]
       },
-      { // 10
+      { // SCREEN 10
         type: 'story',
-        text: '<p><em>The Pizzadog barks in agreement (or disagreement, it\'s hard to tell). You push through the crowd toward the center of the festival.</em></p>',
-        scene: '<div class="composed-emoji" style="bottom: 10%; left: 40%; font-size: 6rem;">🎪</div>',
-        btn: "Keep moving"
+        text: '<p>Apple Juice bursts into tears. Happy ones. The Century Egg writes something very long. The Truffle nods once. "Walk with me."</p>',
+        scene: '<img src="assets/story/Story_10.png" class="scene-img" alt="Truffle leading the way" />',
+        btns: ["🚶 Walk alongside. Listen.", "👀 Try to peek at your scoresheet."]
       },
-      { // 11
+      { // SCREEN 11
         type: 'story',
-        text: '<p><em>You spot the VIP tent. Inside, the legendary Truffle sits on a velvet cushion. They open one eye. "I\'ve been expecting you."</em></p>',
-        scene: '<div class="composed-emoji" style="bottom: 20%; left: 40%; font-size: 5rem;">🍄</div><div class="composed-emoji" style="bottom: 10%; left: 40%; font-size: 6rem;">👑</div>',
-        btn: "Approach the Truffle"
+        text: '<p>The Truffle leads you to the ForkVille Night Market. Dogerry is doing impressions. A Crushedtom looks like it's had a rough day. Bakeddog is still asleep, different bench.</p>',
+        scene: '<img src="assets/story/Story_11.png" class="scene-img" alt="Night market" />',
+        btns: ["🍢 Get something to eat while you wait.", "🎭 Watch Dogerry's impressions."]
       },
-      { // 12
+      { // SCREEN 12
         type: 'story',
-        text: '<p><em>The Truffle floats slightly off the cushion. "Two final questions before your true Foodsona can be revealed."</em></p>',
-        scene: '<div class="composed-emoji" style="bottom: 30%; left: 40%; font-size: 5rem;">🍄</div>',
-        btn: "I'm ready"
+        text: '<p>A Morsel appears from nowhere and sits next to you. "You're the Mystery Ingredient, aren't you. I can always tell." It does not elaborate.</p>',
+        scene: '<img src="assets/story/Story_12.png" class="scene-img" alt="Morsel on a bench" />',
+        btns: ["😐 \"…How can you tell.\"", "🤝 \"Yeah. Any idea what I am?\""]
       },
-      { // 13: Q5 socialFood
+      { // SCREEN 13 - Q5
         type: 'choice',
         qIdx: 4,
-        text: '<p><strong>"Is food a social event for you, or a solo pursuit?"</strong></p>',
-        scene: '<div class="composed-emoji" style="font-size: 6rem;">🥂</div>',
+        text: '<p><strong>Morsel gestures at the whole market. Groups of food characters sharing plates. One Enokimushroom alone on a rooftop eating, looking completely at peace.<br/><br/>Food is best when shared — or is it?</strong></p>',
+        scene: '<img src="assets/story/Story_13.png" class="scene-img" alt="Shared meal" />',
         answers: [
-          { text: "I always cook for/eat with others.", val: 10 },
-          { text: "Social mostly, but I like a quiet meal.", val: 7 },
-          { text: "Usually solo, occasionally social.", val: 4 },
-          { text: "Solo. Eating is a private activity.", val: 1 }
+          { text: "👯 Always. A meal alone is a meal wasted.", val: 10 },
+          { text: "🥂 Usually — depends on the mood.", val: 7 },
+          { text: "🎧 Sometimes. I love a quiet solo meal too.", val: 4 },
+          { text: "🧘 Honestly? I prefer eating alone. Less chaos.", val: 1 }
         ]
       },
-      { // 14
+      { // SCREEN 14
         type: 'story',
-        text: '<p><em>The Truffle hums. The sound vibrates through your spine. "Interesting. Very interesting."</em></p>',
-        scene: '<div class="composed-emoji" style="bottom: 30%; left: 40%; font-size: 5rem;">🍄</div><div class="composed-emoji" style="bottom: 40%; right: 30%; font-size: 3rem;">✨</div>',
-        btn: "Next question"
+        text: '<p>Morsel nods like you've confirmed everything, then leaves without explaining. A Stringcheese stretches dramatically past. A Ketchupandmayo is aggressively debating condiment philosophy with a Puff.</p>',
+        scene: '<img src="assets/story/Story_14.png" class="scene-img" alt="Night market chaos" />',
+        btns: ["🧃 Get a drink. This has been a lot.", "👂 Listen to the condiment debate."]
       },
-      { // 15
+      { // SCREEN 15
         type: 'story',
-        text: '<p><em>"The great kitchen in the sky demands truth..." The Truffle dramatically raises a tiny, mushroomy hand.</em></p>',
-        scene: '<div class="composed-emoji" style="bottom: 30%; left: 40%; font-size: 5rem;">🍄</div><div class="composed-emoji" style="top: 20%; left: 40%; font-size: 4rem;">⚡</div>',
-        btn: "Brace yourself"
+        text: '<p>The Truffle reappears. "One last stop." It leads you into the ForkVille Test Kitchen — either immaculate or completely destroyed depending on who was in last.</p>',
+        scene: '<img src="assets/story/Story_15.png" class="scene-img" alt="Test kitchen" />',
+        btns: ["🧹 Offer to help clean up.", "🔪 Pick up a knife. You feel at home here."]
       },
-      { // 16: Q6 kitchenChaos
+      { // SCREEN 16 - Q6
         type: 'choice',
         qIdx: 5,
-        text: '<p><strong>"When you cook, is your kitchen organized or absolute chaos?"</strong></p>',
-        scene: '<div class="composed-emoji" style="font-size: 6rem;">🌪️</div>',
+        text: '<p><strong>The Truffle leans against a counter and watches you take it in. "When you cook — what does your kitchen actually look like?"<br/><br/>What does your kitchen look like mid-cook?</strong></p>',
+        scene: '<img src="assets/story/Story_16.png" class="scene-img" alt="Kitchen state" />',
         answers: [
-          { text: "Immaculate. Clean as I go. Perfect.", val: 10 },
-          { text: "Tidy enough. Reasonable mess.", val: 7 },
-          { text: "It's a disaster but the food is good.", val: 4 },
-          { text: "Total chaos.", val: 1 }
+          { text: "📐 Prepped and organised before I even start.", val: 10 },
+          { text: "🧽 Mostly tidy — I clean as I go.", val: 7 },
+          { text: "🌀 Controlled chaos. I know where everything is.", val: 4 },
+          { text: "💥 Absolute disaster zone. The food still slaps.", val: 1 }
         ]
       },
-      { // 17
+      { // SCREEN 17
         type: 'story',
-        text: '<p><em>The Truffle descends back to the cushion. "It is decided." They pull out an envelope sealed with a golden fork emblem.</em></p>',
-        scene: '<div class="composed-emoji" style="bottom: 20%; left: 40%; font-size: 5rem;">🍄</div><div class="composed-emoji" style="top: 30%; right: 30%; font-size: 6rem;">✉️</div>',
-        btn: "Take the envelope"
+        text: '<p>The Truffle smiles for the first time. Back at the arena the results board is about to light up. The whole festival has gathered. Springles is near some wiring.</p>',
+        scene: '<img src="assets/story/Story_17.png" class="scene-img" alt="Results board assembly" />',
+        btns: ["😬 \"Someone should really stop Springles.\"", "🍿 Watch from a safe distance."]
       },
-      { // 18
+      { // SCREEN 18
+        type: 'story',
+        text: '<p>A Dogerry starts a drumroll on an overturned pot. The Truffle turns to you. "We've always known what you are. Ready?"</p>',
+        scene: '<img src="assets/story/Story_18.png" class="scene-img" alt="Drumroll" />',
+        btns: ["🫣 \"...Kind of.\"", "😤 \"Yes. Tell me.\""]
+      },
+      { // SCREEN 19
+        type: 'story',
+        text: '<p>The envelope tears open. The crowd goes silent. Even Springles stops.</p>',
+        scene: '<img src="assets/story/Story_19.png" class="scene-img" alt="The big reveal" />',
+        btns: ["✨ \"Who am I?\""]
+      },
+      { // 20 RESULT
         type: 'result'
       }
     ];
@@ -1348,11 +1362,20 @@
         debugHTML = `<button class="fk-btn-stack" style="margin-top: 10px; background: transparent; border: 1px dashed var(--fk-primary); color: var(--fk-primary);" onclick="showScreen(SCREENS.length - 1)">[DEBUG] Skip to Result</button>`;
       }
 
+      let buttonsHTML = '';
+      if (data.btns && Array.isArray(data.btns)) {
+        data.btns.forEach(btnText => {
+          buttonsHTML += `<button class="fk-btn-stack fk-btn-continue" style="margin-bottom: 8px;" onclick="advance(${idx})">${btnText}</button>`;
+        });
+      } else if (data.btn) {
+        buttonsHTML = `<button class="fk-btn-stack fk-btn-continue" onclick="advance(${idx})">${data.btn}</button>`;
+      }
+
       return `
         <div class="narrative-text">${data.text}</div>
         <div class="scene-box">${data.scene}</div>
         <div class="action-area">
-          <button class="fk-btn-stack fk-btn-continue" onclick="advance(${idx})">${data.btn}</button>
+          ${buttonsHTML}
           ${debugHTML}
         </div>
       `;
