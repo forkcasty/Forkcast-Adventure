@@ -25,6 +25,22 @@
   <meta name="twitter:description" content="Take the quiz to discover your culinary alter-ego! 🥑✨">
   <meta name="twitter:image" content="https://forkcast.me/foodsona/assets/story/Story_1.png">
 
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Quiz",
+    "name": "What's Your Foodsona?",
+    "description": "Discover your culinary alter-ego through our interactive personality quiz.",
+    "url": "https://forkcast.me/foodsona/",
+    "thumbnailUrl": "https://forkcast.me/foodsona/assets/story/Story_1.png",
+    "author": {
+      "@type": "Organization",
+      "name": "Forkcast"
+    }
+  }
+  </script>
+
   <style>
     :root {
       /* Brand */
@@ -1183,26 +1199,26 @@
       { // 0 Title
         type: 'story',
         text: "What Foodsona are you?",
-        scene: "<img src=\"assets/story/Story_1.png\" class=\"scene-img\" alt=\"ForkVille morning\" />",
+        scene: "<img src=\"assets/story/Story_1.png\" class=\"scene-img\" alt=\"ForkVille morning\" loading=\"lazy\" loading=\"lazy\" />",
         btn: "Start",
       },
       { // SCREEN 1
         type: 'story',
         text: "You wake up in ForkVille. Stubby little arms. Vaguely delicious smell. No idea what you are.",
-        scene: "<img src=\"assets/story/Story_1.png\" class=\"scene-img\" alt=\"ForkVille morning\" />",
+        scene: "<img src=\"assets/story/Story_1.png\" class=\"scene-img\" alt=\"ForkVille morning\" loading=\"lazy\" loading=\"lazy\" />",
         btns: ["🌅 Look around slowly, take it all in.", "🏃 Start running. Figure it out later."]
       },
       { // SCREEN 2
         type: 'story',
         text: "A Springles rolls past at full speed. \"Food Festival TODAY. No Foodsona, no entry. Figure it out!\"",
-        scene: "<img src=\"assets/story/Story_2.png\" class=\"scene-img\" alt=\"Springles at the gate\" />",
+        scene: "<img src=\"assets/story/Story_2.png\" class=\"scene-img\" alt=\"Springles at the gate\" loading=\"lazy\" />",
         btns: ["😤 \"How hard can getting a Foodsona be.\"", "🤔 \"What is a Foodsona.\""]
       },
       { // SCREEN 3 - Q1
         type: 'choice',
         qIdx: 0,
         text: "A Bokchoy in a high-vis vest blocks the gate. \"No Foodsona, no entry. First question:\"<br/><br/>How often do you cook at home?",
-        scene: "<img src=\"assets/story/Story_3.png\" class=\"scene-img\" alt=\"Bokchoy guard\" />",
+        scene: "<img src=\"assets/story/Story_3.png\" class=\"scene-img\" alt=\"Bokchoy guard\" loading=\"lazy\" />",
         answers: [
           { text: "🍳 Every day. It's my whole thing.", val: 10 },
           { text: "🥘 Most days — 4+ times a week.", val: 7 },
@@ -1213,14 +1229,14 @@
       { // SCREEN 4
         type: 'story',
         text: "She stamps \"MYSTERY\" on your badge and waves you through. Inside: total chaos. An Enoki Mushroom is balanced on a stack of cookbooks.",
-        scene: "<img src=\"assets/story/Story_4.png\" class=\"scene-img\" alt=\"Enoki Mushroom on books\" />",
+        scene: "<img src=\"assets/story/Story_4.png\" class=\"scene-img\" alt=\"Enoki Mushroom on books\" loading=\"lazy\" />",
         btns: ["👀 Head straight to the food stalls.", "🗺️ Look for a map. There has to be a map."]
       },
       { // SCREEN 5 - Q2
         type: 'choice',
         qIdx: 1,
         text: "A Heirloom Tomato sprints over. \"Mystery Ingredient! Cook-Off team needs a fourth. Quick question first:\"<br/><br/>How do you decide what to eat?",
-        scene: "<img src=\"assets/story/Story_5.png\" class=\"scene-img\" alt=\"Heirloom Tomato sprinting\" />",
+        scene: "<img src=\"assets/story/Story_5.png\" class=\"scene-img\" alt=\"Heirloom Tomato sprinting\" loading=\"lazy\" />",
         answers: [
           { text: "📋 I plan meals in advance. I have a system.", val: 10 },
           { text: "🌅 I plan a day ahead — give me some notice.", val: 7 },
@@ -1231,14 +1247,14 @@
       { // SCREEN 6
         type: 'story',
         text: "\"Perfect. You're exactly what we need.\" You don't know what that means. She's already pulling you toward the arena.",
-        scene: "<img src=\"assets/story/Story_6.png\" class=\"scene-img\" alt=\"Arena gates\" />",
+        scene: "<img src=\"assets/story/Story_6.png\" class=\"scene-img\" alt=\"Arena gates\" loading=\"lazy\" />",
         btns: ["🏃 Try to keep up.", "😌 Let yourself be pulled. Surrender to it."]
       },
       { // SCREEN 7 - Q3
         type: 'choice',
         qIdx: 2,
         text: "Cook-Off theme drops: \"A dish you've NEVER made before.\" Avocado crumples their prep sheet. Your honest reaction?<br/><br/>Your approach to new recipes and cuisines?",
-        scene: "<img src=\"assets/story/Story_7.png\" class=\"scene-img\" alt=\"Cook-off kitchen\" />",
+        scene: "<img src=\"assets/story/Story_7.png\" class=\"scene-img\" alt=\"Cook-off kitchen\" loading=\"lazy\" />",
         answers: [
           { text: "🌍 The stranger the better. I'm fully in.", val: 10 },
           { text: "🌱 Open to it with a quick Google first.", val: 7 },
@@ -1249,14 +1265,14 @@
       { // SCREEN 8
         type: 'story',
         text: "A Strawberry knocks over the entire spice rack. The Springles team is on fire — on purpose apparently. 3 minutes left.",
-        scene: "<img src=\"assets/story/Story_8.png\" class=\"scene-img\" alt=\"Kitchen chaos\" />",
+        scene: "<img src=\"assets/story/Story_8.png\" class=\"scene-img\" alt=\"Kitchen chaos\" loading=\"lazy\" />",
         btns: ["🔥 Power through. Plate it now.", "🤝 Ask a teammate for help."]
       },
       { // SCREEN 9 - Q4
         type: 'choice',
         qIdx: 3,
         text: "2 seconds to spare. The judges file in. A Broccoli, a Century Egg, a Truffle already crying. The Broccoli looks at your dish, then at you:<br/><br/>How important is it that food tastes incredible, even if it's unhealthy?",
-        scene: "<img src=\"assets/story/Story_9.png\" class=\"scene-img\" alt=\"Food judges\" />",
+        scene: "<img src=\"assets/story/Story_9.png\" class=\"scene-img\" alt=\"Food judges\" loading=\"lazy\" />",
         answers: [
           { text: "😋 Life is too short for sad meals.", val: 10 },
           { text: "❤️ Very — food should always bring joy.", val: 7 },
@@ -1267,26 +1283,26 @@
       { // SCREEN 10
         type: 'story',
         text: "Truffle bursts into tears. Happy ones. The Century Egg writes something very long. The Broccoli nods once. \"Walk with me.\"",
-        scene: "<img src=\"assets/story/Story_10.png\" class=\"scene-img\" alt=\"Truffle leading the way\" />",
+        scene: "<img src=\"assets/story/Story_10.png\" class=\"scene-img\" alt=\"Truffle leading the way\" loading=\"lazy\" />",
         btns: ["🚶 Walk alongside. Listen.", "👀 Try to peek at your scoresheet."]
       },
       { // SCREEN 11
         type: 'story',
         text: "The Broccoli leads you to the ForkVille Night Market. Dogerry is doing impressions. A Cupcake looks like it's had a rough day.",
-        scene: "<img src=\"assets/story/Story_11.png\" class=\"scene-img\" alt=\"Night market\" />",
+        scene: "<img src=\"assets/story/Story_11.png\" class=\"scene-img\" alt=\"Night market\" loading=\"lazy\" />",
         btns: ["🍢 Get something to eat while you wait.", "🎭 Watch Dogerry's impressions."]
       },
       { // SCREEN 12
         type: 'story',
         text: "A Morsel appears from nowhere and sits next to you. \"You're the Mystery Ingredient, aren't you. I can always tell.\" It does not elaborate.",
-        scene: "<img src=\"assets/story/Story_12.png\" class=\"scene-img\" alt=\"Morsel on a bench\" />",
+        scene: "<img src=\"assets/story/Story_12.png\" class=\"scene-img\" alt=\"Morsel on a bench\" loading=\"lazy\" />",
         btns: ["😐 \"…How can you tell.\"", "🤝 \"Yeah. Any idea what I am?\""]
       },
       { // SCREEN 13 - Q5
         type: 'choice',
         qIdx: 4,
         text: "Morsel gestures at the whole market. Groups of food characters sharing plates. One Enoki mushroom alone on a bench eating, looking completely at peace.<br/><br/>Food is best when shared — or is it?",
-        scene: "<img src=\"assets/story/Story_13.png\" class=\"scene-img\" alt=\"Shared meal\" />",
+        scene: "<img src=\"assets/story/Story_13.png\" class=\"scene-img\" alt=\"Shared meal\" loading=\"lazy\" />",
         answers: [
           { text: "👯 Always. A meal alone is a meal wasted.", val: 10 },
           { text: "🥂 Usually — depends on the mood.", val: 7 },
@@ -1297,20 +1313,20 @@
       { // SCREEN 14
         type: 'story',
         text: "Morsel nods like you've confirmed everything, then leaves without explaining. A Ketchup and Mayo is aggressively debating condiment philosophy with a Puff.",
-        scene: "<img src=\"assets/story/Story_14.png\" class=\"scene-img\" alt=\"Night market chaos\" />",
+        scene: "<img src=\"assets/story/Story_14.png\" class=\"scene-img\" alt=\"Night market chaos\" loading=\"lazy\" />",
         btns: ["🧃 Get a drink. This has been a lot.", "👂 Listen to the condiment debate."]
       },
       { // SCREEN 15
         type: 'story',
         text: "The Broccoli reappears. \"One last stop.\" It leads you into the ForkVille Test Kitchen — either immaculate or completely destroyed depending on who was in last.",
-        scene: "<img src=\"assets/story/Story_15.png\" class=\"scene-img\" alt=\"Test kitchen\" />",
+        scene: "<img src=\"assets/story/Story_15.png\" class=\"scene-img\" alt=\"Test kitchen\" loading=\"lazy\" />",
         btns: ["🧹 Offer to help clean up.", "🔪 Pick up a knife. You feel at home here."]
       },
       { // SCREEN 16 - Q6
         type: 'choice',
         qIdx: 5,
         text: "The Broccoli leans against a counter and watches you take it in. \"When you cook — what does your kitchen actually look like?\"<br/><br/>What does your kitchen look like mid-cook?",
-        scene: "<img src=\"assets/story/Story_16.png\" class=\"scene-img\" alt=\"Kitchen state\" />",
+        scene: "<img src=\"assets/story/Story_16.png\" class=\"scene-img\" alt=\"Kitchen state\" loading=\"lazy\" />",
         answers: [
           { text: "📐 Prepped and organised before I even start.", val: 10 },
           { text: "🧽 Mostly tidy — I clean as I go.", val: 7 },
@@ -1321,19 +1337,19 @@
       { // SCREEN 17
         type: 'story',
         text: "The Broccoli smiles for the first time. Back at the arena the results board is about to light up. The whole festival has gathered. Springles is near doing some wiring.",
-        scene: "<img src=\"assets/story/Story_17.png\" class=\"scene-img\" alt=\"Results board assembly\" />",
+        scene: "<img src=\"assets/story/Story_17.png\" class=\"scene-img\" alt=\"Results board assembly\" loading=\"lazy\" />",
         btns: ["😬 \"Someone should really stop Springles.\"", "🍿 Watch from a safe distance."]
       },
       { // SCREEN 18
         type: 'story',
         text: "A Dogerry starts a drumroll on an overturned pot. The Broccoli turns to you. \"We've always known what you are. Ready?\"",
-        scene: "<img src=\"assets/story/Story_18.png\" class=\"scene-img\" alt=\"Drumroll\" />",
+        scene: "<img src=\"assets/story/Story_18.png\" class=\"scene-img\" alt=\"Drumroll\" loading=\"lazy\" />",
         btns: ["🫣 \"...Kind of.\"", "😤 \"Yes. Tell me.\""]
       },
       { // SCREEN 19
         type: 'story',
         text: "The envelope tears open. The crowd goes silent. Even Springles stops.",
-        scene: "<img src=\"assets/story/Story_19.png\" class=\"scene-img\" alt=\"The big reveal\" />",
+        scene: "<img src=\"assets/story/Story_19.png\" class=\"scene-img\" alt=\"The big reveal\" loading=\"lazy\" />",
         btns: ["✨ \"Who am I?\""]
       },
       { // 20 RESULT
@@ -1388,15 +1404,15 @@
       let buttonsHTML = '';
       if (data.btns && Array.isArray(data.btns)) {
         data.btns.forEach(btnText => {
-          buttonsHTML += `<button class="fk-btn-stack fk-btn-continue" style="margin-bottom: 8px;" onclick="advance(${idx})">${btnText}</button>`;
+          buttonsHTML += `<button class="fk-btn-stack fk-btn-continue" style="margin-bottom: 8px;" onclick="advance(${idx})" aria-label="Select ${btnText}">${btnText}</button>`;
         });
       } else if (data.btn) {
-        buttonsHTML = `<button class="fk-btn-stack fk-btn-continue" onclick="advance(${idx})">${data.btn}</button>`;
+        buttonsHTML = `<button class="fk-btn-stack fk-btn-continue" onclick="advance(${idx})" aria-label="${data.btn} Quiz">${data.btn}</button>`;
       }
 
       return `
         <div class="scene-box">${data.scene}</div>
-        <div class="narrative-text">${data.text}</div>
+        <h1 class="narrative-text">${data.text}</h1>
         <div class="action-area">
           ${buttonsHTML}
           ${debugHTML}
@@ -1413,7 +1429,7 @@
       return `
         <div class="narrative-text" style="display:none;"></div>
         <div class="scene-box">${data.scene}</div>
-        <div class="question-title">${data.text}</div>
+        <h2 class="question-title">${data.text}</h2>
         <div class="action-area">${btnsHTML}</div>
       `;
     }
