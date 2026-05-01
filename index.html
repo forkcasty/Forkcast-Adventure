@@ -1727,21 +1727,36 @@
         const sharePath = data.name.toLowerCase().replace(/ /g, '');
         const shareUrl = `https://forkcast.me/foodsona/share/${sharePath}.html`;
 
+        let shared = false;
+        
+        // Try Native Share if the browser claims to support it
         if (navigator.share) {
-          navigator.share({
-            title: shareTitle,
-            text: shareText,
-            url: shareUrl
-          }).catch(err => {
-            console.log("Web Share cancelled/failed, falling back to clipboard");
-            copyToClipboard(btnElement, shareText + " " + shareUrl);
-          });
-        } else {
-          copyToClipboard(btnElement, shareText + " " + shareUrl);
+          try {
+            navigator.share({
+              title: shareTitle,
+              text: shareText,
+              url: shareUrl
+            }).then(() => {
+              console.log("Shared successfully");
+            }).catch(err => {
+              console.log("Web Share cancelled or failed async, falling back to clipboard");
+              copyToClipboard(btnElement, shareText + "\n" + shareUrl);
+            });
+            shared = true;
+          } catch (syncErr) {
+            console.log("Web Share threw a sync error (common on desktop), falling back");
+            shared = false;
+          }
         }
+        
+        // If Native Share isn't supported or crashed, use the clipboard
+        if (!shared) {
+          copyToClipboard(btnElement, shareText + "\n" + shareUrl);
+        }
+
       } catch (e) {
-        console.error("Share error:", e);
-        alert("Oops! Sharing didn't work. You can copy the URL from your browser address bar!");
+        console.error("Critical Share error:", e);
+        alert("Oops! Sharing didn't work. Error: " + e.message);
       }
     }
 
