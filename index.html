@@ -1719,7 +1719,7 @@
     }
 
     function shareQuiz(btnElement, avatarId) {
-      const data = AVATARS[avatarId] || {};
+      const data = RESULTS[avatarId] || {};
       const emoji = getEmojiForAvatar(avatarId);
       const shareTitle = `I'm a ${data.name}! ${emoji} | Forkcast Foodsona`;
       const shareText = `I'm a ${data.name} (${data.subtitle})! ${emoji} What's your Foodsona? Take the quiz to discover your culinary alter-ego! 🥑✨`;
