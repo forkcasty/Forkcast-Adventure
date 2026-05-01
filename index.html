@@ -1719,57 +1719,64 @@
     }
 
     function shareQuiz(btnElement, avatarId) {
-      const data = RESULTS[avatarId] || {};
-      const emoji = getEmojiForAvatar(avatarId);
-      const shareTitle = `I'm a ${data.name}! ${emoji} | Forkcast Foodsona`;
-      const shareText = `I'm a ${data.name} (${data.subtitle})! ${emoji} What's your Foodsona? Take the quiz to discover your culinary alter-ego! 🥑✨`;
-      const sharePath = data.name.toLowerCase().replace(/ /g, '');
-      const shareUrl = `https://forkcast.me/foodsona/share/${sharePath}.html`;
+      try {
+        const data = RESULTS[avatarId] || {};
+        const emoji = getEmojiForAvatar(avatarId);
+        const shareTitle = `I'm a ${data.name}! ${emoji} | Forkcast Foodsona`;
+        const shareText = `I'm a ${data.name} (${data.subtitle})! ${emoji} What's your Foodsona? Take the quiz to discover your culinary alter-ego! 🥑✨`;
+        const sharePath = data.name.toLowerCase().replace(/ /g, '');
+        const shareUrl = `https://forkcast.me/foodsona/share/${sharePath}.html`;
 
-      if (navigator.share) {
-        navigator.share({
-          title: shareTitle,
-          text: shareText,
-          url: shareUrl
-        }).catch(err => {
-          console.error("Web Share failed:", err);
+        if (navigator.share) {
+          navigator.share({
+            title: shareTitle,
+            text: shareText,
+            url: shareUrl
+          }).catch(err => {
+            console.log("Web Share cancelled/failed, falling back to clipboard");
+            copyToClipboard(btnElement, shareText + " " + shareUrl);
+          });
+        } else {
           copyToClipboard(btnElement, shareText + " " + shareUrl);
-        });
-      } else {
-        copyToClipboard(btnElement, shareText + " " + shareUrl);
+        }
+      } catch (e) {
+        console.error("Share error:", e);
+        alert("Oops! Sharing didn't work. You can copy the URL from your browser address bar!");
       }
     }
 
     function copyToClipboard(btnElement, text) {
+      const originalText = btnElement.innerHTML;
+      
+      const proceed = () => {
+        btnElement.innerHTML = "✅ Copied to clipboard!";
+        setTimeout(() => { btnElement.innerHTML = originalText; }, 2000);
+      };
+
       if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(text).then(() => {
-          const originalText = btnElement.innerHTML;
-          btnElement.innerHTML = "✅ Copied to clipboard!";
-          setTimeout(() => {
-            btnElement.innerHTML = originalText;
-          }, 2000);
-        }).catch(err => {
-          console.error('Clipboard failed: ', err);
-          fallbackShare(text);
-        });
+        navigator.clipboard.writeText(text).then(proceed).catch(() => fallbackCopy(text, proceed));
       } else {
-        fallbackShare(text);
+        fallbackCopy(text, proceed);
       }
     }
 
-    function fallbackShare(text) {
+    function fallbackCopy(text, callback) {
       const textArea = document.createElement("textarea");
       textArea.value = text;
+      textArea.style.position = "fixed";
+      textArea.style.left = "-9999px";
+      textArea.style.top = "0";
       document.body.appendChild(textArea);
       textArea.focus();
       textArea.select();
       try {
         document.execCommand('copy');
-        alert("Text and link copied to clipboard!");
+        callback();
       } catch (err) {
         console.error('Fallback copy failed', err);
       }
       document.body.removeChild(textArea);
+    }
     }
 
     // Init App
