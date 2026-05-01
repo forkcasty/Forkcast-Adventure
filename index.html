@@ -12,14 +12,6 @@
     href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75,300;12..96,75,400;12..96,75,600;12..96,100,300;12..96,100,400;12..96,100,600&display=swap"
     rel="stylesheet">
 
-  <script>
-    // Dynamic base tag to ensure images work on Netlify AND the final domain
-    (function() {
-      const isProd = window.location.hostname === 'forkcast.me' || window.location.hostname === 'www.forkcast.me';
-      const baseHref = isProd ? 'https://forkcast.me/foodsona/' : window.location.origin + '/';
-      document.write('<base href="' + baseHref + '">');
-    })();
-  </script>
 
   <!-- Social Meta Tags (Dynamic previews handled by Netlify Edge) -->
   <meta property="og:title" content="What's Your Foodsona? | Forkcast">
